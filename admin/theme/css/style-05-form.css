@@ -1,0 +1,467 @@
+/**
+ * for form > input[submit] and other buttons, take a look at style-btn.css
+ */
+
+
+.form, .form-inline
+{
+    position:relative;
+}
+
+.input {
+    padding: 6px 8px;
+    display: flex;
+}
+.checkboxs-inline > label {
+    width: 100%;
+    display: block;
+    padding: 12px 8px 0 0;
+}
+.checkboxs-inline .input {
+    flex: 1;
+    width: 31%;
+    display: inline-block;
+}
+.form-condensed .input {
+    padding: 0;
+}
+
+.input:not(.input-tags) {
+    flex-flow: column wrap;
+}
+
+.input .checkbox+label {
+    margin-bottom: 0;
+}
+.input label {
+    width: 100%;
+    display: block;
+    order: -1;
+    font-size: 15px;
+    padding: 6px 0 0 0;
+    line-height: 24px;
+    color: rgb(62, 62, 62);
+}
+
+.input input:focus+label,
+.input textarea:focus+label,
+.input select:focus+label
+{
+    color:#2196F3;
+}
+.input select
+{
+    margin-right: 0;
+}
+.input option{
+    padding: 8px 0;
+}
+
+.input input,
+.input textarea,
+.input select
+{
+    width: 100%;
+    font-size: 16px;
+    padding: 4px 0;
+    box-shadow: none;
+    color: rgb(7, 7, 7);
+    border: 0 solid transparent;
+    border-radius: 0;
+    outline: 0;
+    width: 100%;
+    max-width: 100%;
+    font-size: 16px;
+    background: white no-repeat;
+    background-position: 0 100%, 100% 100%;
+    background-size: 0 2px, 100% 1px;
+    transition: background-size 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.22)), linear-gradient(to bottom, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32));
+}
+
+.input-large
+{
+    padding: 12px 8px;
+}
+.input-large input,
+.input-large textarea,
+.input-large select
+{
+    padding: 8px 0;
+    font-size: 1.2em;
+}
+
+.input input:focus,
+.input textarea:focus,
+.input select:active,
+.input select:focus
+{
+    color: rgb(4, 4, 4);
+    background-image: linear-gradient(to bottom, #2196F3, #2196F3), linear-gradient(to bottom, silver, silver);
+    background-image: linear-gradient(to bottom, #2196F3, #2196F3), linear-gradient(to bottom, #2196F3, #2196F3);
+    background-size: 100% 2px, 100% 1px;
+    outline:0;
+}
+.input input:disabled,
+.input textarea:disabled,
+.input select:disabled
+{
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.32) 25%, transparent 25%), linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.32) 75%);
+    background-size: 2px 1px;
+    background-repeat: repeat-x;
+    cursor:not-allowed;
+}
+
+.input input:read-only,
+.input textarea:read-only
+{
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.32) 25%, transparent 25%), linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.32) 75%);
+    background-size: 4px 1px;
+    background-repeat: repeat-x;
+}
+
+/*
+.input input:not([value=""]):invalid,
+.input textarea:not([value=""]):invalid,
+.input select:not([value=""]):invalid
+*/
+.input input:invalid,
+.input textarea:invalid,
+.input select:invalid
+{
+    box-shadow: none;
+    outline: none;
+    background-image: linear-gradient(to bottom, #f44336, #f44336), linear-gradient(to bottom, silver, silver);
+    /* background-repeat: repeat-x; */
+}
+
+.form .tips, .form-inline .tips,
+.form .error, .form-inline .error
+{
+    display: inline-block;
+    width: 100%;
+    margin-top: 0;
+    color: rgba(0, 0, 0, 0.52);
+    font-size: 0.9em;
+    padding-left: 8px;
+    line-height: 1.4em;
+}
+.form .error,
+.form-inline .error {
+    color: #f44336;
+}
+.form .tips+.tips,
+.form .tips+.error,
+.form .error+.error
+{
+    margin-top:0;
+}
+
+
+.form-inline .input {
+    flex-flow: unset;
+    /* flex-flow: none; */
+    align-items: center;
+}
+.form-inline .input label {
+    padding: 8px 0;
+    flex: 1;
+    text-align:right;
+    padding-right: 1em;
+}
+.form-inline .input input.text,
+.form-inline .input textarea.text,
+.form-inline .input select
+{
+    /* width:56%; */
+    flex: 2;
+}
+.form-inline .tips,
+.form-inline .error
+{
+    padding-left: 35%;
+    width:100%;
+}
+
+
+/* checkbox */
+.radio,
+.checkbox,
+.checkbox-toggle {
+    position: absolute;
+    left: -9999px;
+}
+.form-inline .input .radio+label,
+.form-inline .input .checkbox+label,
+.form-inline .input .checkbox-toggle+label {
+    margin-left: 34%;
+}
+.radio+label,
+.checkbox+label,
+.checkbox-toggle+label {
+    cursor: pointer;
+    position: relative;
+    margin-left: 30px;
+    padding: 3px 0;
+    width: auto;
+    text-align: left !important;
+}
+.checkbox-toggle+label {
+    margin-left: 60px;
+}
+.radio.right+label,
+.checkbox.right+label,
+.checkbox-toggle.right+label {
+    margin-left: 0;
+}
+
+/* the checkbox */
+.radio+label::after,
+.checkbox+label::after {
+    content: '\e905';
+    text-align: center;
+    color: white;
+    font-size: 1em;
+    border: 2px solid rgba(0, 0, 0, .3);
+    border-radius: 3px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: -24px;
+    transform: translate(0, -50%);
+    width: 18px;
+    height: 18px;
+    line-height: 14px;
+    transition: background-color 1s, border-color 1s;
+}
+.radio+label::after {
+    border-radius: 100%;
+}
+.radio.right+label::after,
+.checkbox.right+label::after {
+    left: auto;
+    right: 0;
+}
+
+.radio:checked+label::after,
+.checkbox:checked+label::after { /* the checkbox -- checked */
+    border-color: rgba(33, 150, 243, 0);
+    background-color: rgba(33, 150, 243, 1);
+}
+.radio:checked:disabled+label::after,
+.checkbox:checked:disabled+label::after {
+    background-color: rgb(146, 148, 150);
+}
+
+.radio+label::before,
+.checkbox+label::before { /* the focus ripple */
+    content: '';
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, .1);
+    position: absolute;
+    top: 50%;
+    left: -16px;
+    transform: translate(-50%, -50%) scale(0);
+    width: 2px;
+    height: 2px;
+}
+.radio.right+label::before,
+.checkbox.right+label::before {
+    left: auto;
+    right: 8px;
+}
+
+.radio:focus+label::before,
+.checkbox:focus+label::before {
+    animation: md-ripple 1s ease-out;
+}
+.form-inline .input .radio+label,
+.form-inline .input .checkbox+label {
+    text-align: left;
+}
+
+.checkbox-toggle+label::after {
+    position: absolute;
+    left: -51px;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: block;
+    width: 22px;
+    height: 22px;
+    border-radius: 100%;
+    background: #ECECEC;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    content: '';
+    transition: all 0.3s ease;
+}
+.checkbox-toggle.right+label::after {
+    left: auto;
+    right: 20px;
+}
+
+.checkbox-toggle:checked + label::after {
+    left: -30px;
+    background: #4285F4;
+}
+.checkbox-toggle.right:checked + label::after {
+    left: auto;
+    right: 0;
+}
+
+.checkbox-toggle+label::before {
+    position: absolute;
+    left: -50px;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: block;
+    height: 15px;
+    width: 40px;
+    background: #B2B2B2;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    content: '';
+}
+.checkbox-toggle.right+label::before {
+    left: auto;
+    right: 0;
+}
+
+.checkbox-toggle:checked+label:before {
+    background: #A0C2F9;
+}
+
+.checkbox-toggle:focus+label::after {
+    box-shadow: 0px 3px 3px rgba(0,0,0,0.2), 0 0 0 5px rgba(0, 0, 0, .1);
+}
+
+.checkbox-toggle:disabled+label:before,
+.checkbox-toggle:disabled+label::after {
+    background:#BDBDBD;
+}
+
+.checkbox-toggle:not(:disabled):active+label::after {
+    box-shadow: 0px 3px 3px rgba(0,0,0,0.2), 0 0 0 15px rgba(160, 194, 249, .4);
+}
+
+
+/* mark input with a * in label */
+input:required+label:after
+{
+    content: "*";
+    margin-left: 0.2em;
+    color: #FF9800;/* orange */
+    vertical-align: super;
+    font-size: smaller;
+}
+input:required:invalid+label
+{
+    color:#f44336;/* red */
+}
+
+
+::-webkit-input-placeholder,
+::-moz-placeholder,
+:-moz-placeholder,
+:-ms-input-placeholderr,
+[placeholder]
+{
+    color: pink;
+}
+.text:focus::-webkit-input-placeholder,
+.text:focus::-moz-placeholder,
+.text:-moz-placeholder:focus
+.text:-ms-input-placeholder:focus,
+.text[placeholder]:focus
+{
+    color: red;
+}
+
+select[multiple] {
+    overflow-y: auto;
+}
+select[multiple] option{
+    position: relative;
+    padding-left: 30px;
+}
+select[multiple] option::after {
+    content: '\e905';
+    text-align: center;
+    color: white;
+    font-size: 1em;
+    border: 2px solid rgba(0, 0, 0, .3);
+    border-radius: 3px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    transform: translate(0, -50%);
+    width: 18px;
+    height: 18px;
+    line-height: 14px;
+    transition: background-color 1s, border-color 1s;
+}
+
+select[multiple] option::before {
+    content: '';
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, .1);
+    position: absolute;
+    top: 50%;
+    left: -16px;
+    transform: translate(-50%, -50%) scale(0);
+    width: 2px;
+    height: 2px;
+}
+select[multiple] option:checked::after {
+    border-color: rgba(33, 150, 243, 0);
+    background-color: rgba(33, 150, 243, 1);
+}
+
+
+.input:-webkit-full-screen {
+    width: 100vw !important;
+    max-width: 960px;
+    margin: 0 auto;
+    height: 100vh !important;
+}
+.input:-moz-full-screen {
+    width: 100vw !important;
+    max-width: 960px;
+    margin: 0 auto;
+    height: 100vh !important;
+}
+.input:-ms-full-screen {
+    width: 100vw !important;
+    max-width: 960px;
+    margin: 0 auto;
+    height: 100vh !important;
+}
+.input:fullscreen {
+    width: 100vw !important;
+    max-width: 960px;
+    margin: 0 auto;
+    height: 100vh !important;
+    background:yellow;
+}
+.input:-webkit-full-screen textarea {
+    width: 100%;
+    height: calc(100vh - 100px);
+}
+.input:-moz-full-screen textarea {
+    width: 100%;
+    height: calc(100vh - 100px);
+}
+.input:-ms-full-screen textarea {
+    width: 100%;
+    height: calc(100vh - 100px);
+}
+.input:fullscreen textarea {
+    width: 100%;
+    height: calc(100vh - 100px);
+}
+.input:fullscreen textarea {
+    width: 100%;
+    height: calc(100vh - 100px);
+}
+

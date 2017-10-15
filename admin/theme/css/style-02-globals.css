@@ -1,0 +1,165 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #eee;
+    color: rgba(0, 0, 0, .87);
+    font-family: Roboto, Verdana, Helvetica, Arial, sans-serif;
+    word-wrap: break-word;
+}
+
+html {
+    font-size: 15px;
+    line-height: 1.15;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    height: 100%;
+}
+
+body {
+    font-size: 1em;
+    position: relative;
+    margin: 0;
+    padding-top: 0;
+    min-height: 100%;
+}
+@media (min-width: 850px) {
+    body {
+        padding-top: 62px;
+    }
+}
+
+*,*:before,*:after
+{
+    box-sizing: border-box;
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
+}
+
+a {
+    color: #2196F3;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+
+a:hover {
+    color: #4f6681;
+    text-decoration: underline;
+}
+
+
+img {
+    border: none;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Trebuchet MS', Roboto, Arial, sans-serif;
+    clear: both;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+q, blockquote {
+    font-style: italic;
+}
+
+.btn,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+button {
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 300;
+    border-radius: 0;
+}
+
+form {
+    margin: 0;
+}
+
+textarea {
+    resize: vertical;
+    width: 100%;
+    padding: 5px;
+}
+
+textarea, select, option, input {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 300;
+    border-radius: 0;
+    line-height: 22px;
+}
+
+label, input, textarea, select {
+    vertical-align: middle;
+}
+
+select {
+    background: #fafafa;
+    padding: 10px;
+    margin-right: 5px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .2);
+    border: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+}
+
+select option,
+select optgroup::before {
+    border: 0;
+    background: white;
+    color: #333;
+}
+select optgroup::before {
+    background: #eee;
+    text-align: center;
+}
+
+legend {
+    padding: 0;
+}
+
+fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+[draggable] {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Required to make elements draggable in old WebKit */
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+}

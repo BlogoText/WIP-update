@@ -1,0 +1,121 @@
+/* AUTH
+-------------------------------------------------------------------------------- */
+/*
+#pageauth {
+    font-size: 1em;
+    display: block;
+    clear: both;
+    margin: auto;
+    text-align: center;
+}
+
+#auth,
+#install {
+    width: 320px;
+    margin: auto;
+}
+
+#auth p {
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
+}
+
+#install p {
+    width: 240px;
+    text-align: left;
+    margin: 15px auto;
+}
+
+#auth p label:not([for="stay_logged"]) {
+    width: 24px;
+    height: 1.7em;
+    overflow: hidden;
+    display: inline-block;
+    color: rgba(0, 0, 0, .5);
+    font-size: 1.7em;
+}
+
+#auth p label:not([for="stay_logged"])::before {
+    height: 1.7em;
+    line-height: 1.7em;
+}
+
+#install p label,
+#install p input.text {
+    min-height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#install p label {
+    display: block;
+    text-align: left;
+    line-height: 2em;
+}
+
+#auth input.text,
+#install input.text {
+    width: 200px;
+    padding: 0 5px;
+    line-height: 1.7em;
+}
+
+#install input.text {
+    width: 240px;
+    padding: 0;
+}
+
+#install #mdp,
+#install #mysql_password {
+    width: 210px;
+}
+*/
+#install .unveilmdp {
+    vertical-align: middle;
+    border: none;
+    width: 30px;
+    display: inline-block;
+    height: 30px;
+    background: none;
+    padding: 0;
+    border-bottom: 1px solid silver;
+}
+
+#install .unveilmdp::before {
+    content: "\e91c";
+    font-size: 2em;
+}
+
+#install input[type="text"]+.unveilmdp::before {
+    color: red;
+}
+
+/*
+#auth p label[for="user"]::before     { content: "\e930"; }
+#auth p label[for="password"]::before { content: "\e93d"; }
+#auth p label[for="word"]::before     { content: "\e93b"; }
+
+
+#pageauth h1 {
+    margin: 0 auto 25px;
+    font-size: 2.7em;
+}
+
+#pageauth h1#step {
+    font-size: 1.8em;
+    color: #999;
+}
+
+#freecap {
+    border: 1px dashed silver;
+}
+
+#pageauth label {
+    text-align: center;
+}
+
+#pageauth label[for="sgdb"] {
+    display: inline;
+}
+*/

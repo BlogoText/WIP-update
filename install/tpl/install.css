@@ -1,0 +1,74 @@
+html
+{
+    overflow: hidden;
+    overflow-y:scroll;
+}
+body
+{
+    padding: 0;
+}
+header
+{
+    text-align: center;
+}
+
+#langs
+{
+    text-align: right;
+    margin: 0.5em auto;
+    max-width: 480px;
+}
+#langs a
+{
+    color: rgba(0, 0, 0, .40);
+    padding: 0.2em 0.3em;
+    text-decoration: none;
+}
+#langs a:last-child
+{
+    padding-right: 0;
+}
+#langs a:hover
+{
+    color: rgba(0, 0, 0, .80);
+    text-decoration: underline;
+}
+
+#content
+{
+    /* background-color: #fff; */
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 1em;
+    /* box-shadow: 0px 1px 4px rgba(0, 0, 0, .25); */
+    /* border-radius: 2px; */
+    box-sizing: border-box;
+}
+.error
+{
+    color: #F44336;
+}
+
+table#compat
+{
+    border-spacing: 0 0.5em;
+    border-collapse: separate;
+}
+table#compat td
+{
+    padding: 0.8em;
+}
+table#compat tr td:first-child
+{
+    padding-right:0.8em;
+    text-align:center;
+}
+.bck_is_ok
+{
+    background-color:#DCEDC8;
+}
+.bck_is_ko
+{
+    background-color:#FFCCBC;
+}

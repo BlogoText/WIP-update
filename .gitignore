@@ -1,0 +1,12 @@
+bt_backup/
+.cache/
+config/
+databases/
+files/
+img/
+.htaccess
+themes/default/avatars/*.png
+admin/cache/favicons/*.png
+admin/cache/avatars/*.png
+*.phar
+var/

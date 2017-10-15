@@ -1,0 +1,139 @@
+
+/* the entire page without top bars (#header) and footer (#footer) */
+#axe {
+    padding: 10px;
+    min-height: calc(100vh - 100px);
+}
+@media (min-width: 700px) {
+    #axe {
+        padding: 20px;
+    }
+}
+
+/* the main frame. #axe minus the "filtre" forms, and the subnav */
+#page {
+    padding: 5px;
+}
+
+/* icon */
+/*
+*::before,
+*::after {
+    font-family: "icon" !important;
+    vertical-align: middle;
+    line-height: 1;
+    color: inherit;
+}
+*/
+
+/* Footer */
+#footer {
+    clear: both;
+    text-align: center;
+    color: #666;
+    padding: 10px;
+    font-size: .8em;
+}
+#footer a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.txt-center{
+    text-align: center;
+}
+
+
+.info { /* ex : « il n'y a aucun commentaire » est un .info */
+    padding: 15px;
+    padding-left: 40px;
+    position: relative;
+    margin: 0;
+}
+
+
+/* ERREURS */
+#erreurs, .erreurs, #succes, .succes {
+    display: block;
+    clear: both;
+    margin: 0 0 15px 0;
+    color: #D40000;
+}
+
+#succes, .succes {
+    color: #00A400;
+}
+
+#erreurs ul {
+    list-style-type: square;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+#erreurs li {
+    margin: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+/*
+.main-white
+ {
+    padding: 15px;
+    background: #fefefe;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, .25);
+    border-radius: 2px;
+}
+*/
+
+/* center block with != size */
+.block_full,
+.block_tiny,
+.block_small,
+.block_medium,
+.block_large,
+.block_huge
+{
+    width: 100%;
+    margin: auto;
+}
+/* 320 * size - 20 */
+.block_tiny     { max-width:  300px; }
+.block_small   { max-width:  620px; }
+.block_medium { max-width:  940px; }
+.block_large   { max-width: 1260px; }
+.block_huge     { max-width: 1580px; }
+
+/* white block */
+.block-white {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    padding: 15px;
+    background: #fefefe;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, .25);
+    border-radius: 2px;
+    position: relative;
+}
+
+.block_legend {
+    margin-top: 60px;
+    position: relative;
+}
+
+.block_legend > legend {
+    padding: 0;
+    font-weight: 500;
+    color: rgba(0, 0, 0, .5);
+    position: absolute;
+    top: -30px;
+    left: 20px;
+}
+
+.m0 {
+    margin: 0 !important;
+}
+.p0 {
+    padding: 0 !important;
+}

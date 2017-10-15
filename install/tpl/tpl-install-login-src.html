@@ -1,0 +1,42 @@
+<form id="install-login" method="POST"> <!--  target="{target}" -->
+
+    <!-- URL -->
+    <div class="input">
+        <input type="text" name="pseudo" id="pseudo" size="30" value="{pseudo}" class="text" placeholder="{user_pseudo_placeholder}"  autofocus />
+        <label for="pseudo">{user_pseudo_label}</label>
+        <div class="tips">{user_pseudo_tips}</div>
+        <div class="error">{pseudo-error}</div>
+    </div>
+
+    <!-- admin fold rename -->
+    <div class="input">
+        <input type="text" name="login" id="login" size="30" value="{login}" class="text" placeholder="{user_login_placeholder}"  />
+        <label for="login">{user_login_label}</label>
+        <div class="tips">{user_login_tips}</div>
+        <div class="error">{login-error}</div>
+    </div>
+
+    <!-- db type -->
+    <div class="input">
+        <input type="password" name="password" id="password" size="30" value="" class="text" placeholder="" />
+        <label for="password">{user_password_label}</label>
+        <div class="tips">{user_password_tips}</div>
+        <div class="error">{password-error}</div>
+    </div>
+
+    <!-- db settings (MySQL) -->
+    <div class="input">
+        <input type="email" name="email" id="email" size="30" value="{email}" class="text" placeholder="{user_email_placeholder}"  />
+        <label for="email">{user_email_label}</label>
+        <div class="tips">{user_email_tips}</div>
+        <div class="error">{email-error}</div>
+    </div>
+
+    {form_errors}
+    {form_hidden}
+
+    <p class="btn-container">
+        <button class="btn btn-blue btn-submit" type="submit" name="proceed">Ok</button>
+    </p>
+
+</form>

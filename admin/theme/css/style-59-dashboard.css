@@ -1,0 +1,40 @@
+/* Dashboard / admin home
+------------------------------------------------------------ */
+
+
+.home-item {
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+.home-item > div {
+    width: 100%;
+}
+
+/* item number */
+.home-item-number {
+    text-align: center;
+}
+.home-item-number .home-number {
+    font-size: 2em;
+}
+.home-item-number .home-desc {
+    color: #555;
+}
+.home-item-number:hover .home-desc {
+    color: #333;
+}
+/* button / link */
+.home-item .home-action {
+    padding: 0.5em 0 0 0;
+    margin: 0.5em 0 0 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Handle some special case
+ */
+#home-graph {
+    padding: 0 !important;
+}

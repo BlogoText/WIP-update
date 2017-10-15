@@ -1,0 +1,71 @@
+
+.breadcrumb {
+    margin: 16px 0;
+}
+
+.breadcrumb > ul {
+    margin: 0;
+    padding: 0;
+}
+.breadcrumb > ul > li {
+    display: inline-block;
+    margin: 0;
+}
+
+.breadcrumb > ul > li > a {
+    color:#FFF;
+    display:block;
+    background: silver;
+    text-decoration: none;
+    position:relative;
+    height: 36px;
+    line-height:36px;
+    padding: 0 14px 0 0;
+    text-align: center;
+    margin-right: 26px;
+}
+
+.breadcrumb > ul > li > a:before,
+.breadcrumb > ul > li > a:after{
+    content: "";
+    position:absolute;
+    top: 0;
+    border:0 solid silver;
+    border-width:18px 10px;
+    width: 0;
+    height: 0;
+}
+.breadcrumb > ul > li:first-child > a{
+    padding-left:18px;
+}
+.breadcrumb > ul > li:first-child > a:before{
+    border:none;
+}
+.breadcrumb > ul > li:last-child > a:before,
+.breadcrumb > ul > li:last-child > a:after{
+    border:0 solid white;
+    border-width:18px 10px;
+}
+.breadcrumb > ul > li > a:before,
+.breadcrumb > ul > li:last-child > a:before{
+    left:-20px;
+    border-left-color:transparent;
+}
+.breadcrumb > ul > li > a:after{
+    left:100%;
+    border-color:transparent;
+    border-left-color: silver;
+}
+.breadcrumb > ul > li:last-child > a:after{
+    border-left-color: white;
+}
+.breadcrumb > ul > li:last-child > a{
+    background: white;
+    color:#868484;
+}
+.breadcrumb > ul > li:last-child > a{
+    padding-right: 15px;
+}
+.breadcrumb > ul > li:last-child > a:after{
+    border: none;
+}

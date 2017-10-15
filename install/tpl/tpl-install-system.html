@@ -1,0 +1,93 @@
+<form id="install-system" class="form block_medium" method="POST">
+
+    <div role="group" class="block-white block_legend">
+        <legend class="legend-user">{sys_legend}</legend>
+        <div>
+
+            <!-- URL -->
+            <div class="input">
+                <input type="text" name="URL_ROOT" id="sys_url" size="30" value="{URL_ROOT}" class="text" placeholder="{sys_url_placeholder}" required autofocus />
+                <label for="sys_url">{sys_url_label}</label>
+                <div class="tips">{sys_url_tips}</div>
+                <div class="error">{url-error}</div>
+            </div>
+
+            <!-- admin fold rename -->
+            <div class="input">
+                <input type="text" name="adminfold" id="sys_adminfold" value="{adminfold}" class="text" required />
+                <label for="sys_adminfold">{sys_adminfold_label}</label>
+                <div class="tips">{sys_adminfold_tips}</div>
+                <div class="error">{adminfold-error}</div>
+            </div>
+
+            <!-- db type -->
+            <div class="input input-select">
+                <select id="sys_db_type" name="DBMS" onchange="on_db_change(this)">
+                    {sys_db_type_options}
+                </select>
+                <label for="sys_db_type">{sys_db_type_label}</label>
+                <div class="error">{db_errors}</div>
+            </div>
+
+            <!-- db settings (MySQL) -->
+            <div id="sys_db_settings" {sys_db_settings_style}>
+                <!-- login -->
+                <div class="input required">
+                    <input type="text" name="MYSQL_LOGIN" value="{MYSQL_LOGIN}" id="sys_db_login" size="30" class="text" />
+                    <label for="sys_db_login">{sys_db_login_label}</label>
+                    <div class="error">{MYSQL_LOGIN-error}</div>
+                </div>
+                <!-- pass -->
+                <div class="input required">
+                    <input type="password" name="MYSQL_PASS" id="sys_db_password" size="30" value="" class="text" />
+                    <label for="sys_db_password">{sys_db_password_label}</label>
+                    <div class="error">{MYSQL_PASS-error}</div>
+                </div>
+                <!-- host -->
+                <div class="input required">
+                    <input type="text" name="MYSQL_HOST" value="{MYSQL_HOST}" id="sys_db_server" size="30" class="text" />
+                    <label for="sys_db_server">{sys_db_server_label}</label>
+                    <div class="error">{MYSQL_HOST-error}</div>
+                </div>
+                <!-- port -->
+                <div class="input required">
+                    <input type="int" name="MYSQL_PORT" value="{MYSQL_PORT}" id="sys_db_port" size="30" class="text" />
+                    <label for="sys_db_port">{sys_db_port_label}</label>
+                    <div class="error">{MYSQL_PORT-error}</div>
+                </div>
+                <!-- db name -->
+                <div class="input required">
+                    <input type="text" name="MYSQL_DB" value="{MYSQL_DB}" id="sys_db_name" size="30" class="text" />
+                    <label for="sys_db_name">{sys_db_name_label}</label>
+                    <div class="error">{MYSQL_DB-error}</div>
+                </div>
+            </div>
+
+            <!-- add db datas -->
+            <div class="input">
+                <input type="checkbox" name="datas" id="sys_datas" value="1" class="checkbox" />
+                <label for="sys_datas">{sys_datas_label}</label>
+                <span class="tips">{tips_sys_datas}</span>
+            </div>
+
+            {form_errors}
+            {form_hidden}
+
+            <div class="btn-container">
+                <span class="required_label">{required_label}</span>
+                <button class="btn btn-blue btn-submit" type="submit" name="proceed">Ok</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    /**
+     * hide/show advanced MySQL form
+     */
+    function on_db_change(sel)
+    {
+        var val = (sel.value == 'mysql') ? 'block' : 'none';
+        document.getElementById('sys_db_settings').style.display = val;
+    }
+</script>

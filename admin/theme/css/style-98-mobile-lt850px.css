@@ -1,0 +1,128 @@
+@media (max-width: 850px) {
+/*
+    select {
+        max-width: 100%;
+    }
+*/
+
+    /* liste fichiers */
+    #image-wall {
+        text-align: center;
+        padding: 10px;
+    }
+    #image-wall .image_bloc {
+        width: 147px;
+        height: 147px;
+        line-height: 147px;
+    }
+
+    #file-list td {
+        padding: 5px;
+    }
+
+    #file-list td:nth-of-type(4),
+    #file-list th:nth-of-type(4) {
+        display: none;
+    }
+
+    #file-list td img {
+        vertical-align: middle;
+        width: 20px;
+    }
+
+    #file-list tr td:nth-of-type(1) {
+        padding-left: 10px;
+        width: 20px;
+    }
+
+    #file-list tr td:nth-of-type(5),
+    #file-list tr td:last-of-type {
+        padding-left: 5px;
+    }
+    #file-list tr td:last-of-type {
+        padding-right: 5px;
+    }
+
+    /* form post liens */
+    /*
+    #post-lien {
+        width: auto;
+    }
+    */
+
+    /* TOP ------------------------------------------------------*/
+
+    /* liste des articles */
+    #billets > li {
+        display: block;
+        line-height: initial;
+        text-align: right;
+        padding: 0 10px;
+    }
+    #billets > li > span:nth-of-type(2),
+    #billets > li > span:nth-of-type(3),
+    #billets > li > span:nth-of-type(4) {
+        font-size: .8em;
+    }
+
+    #billets > li > span:nth-of-type(1) {
+        text-align: left;
+        padding: 0;
+        display: block;
+        line-height: 50px;
+    }
+    #billets > li > span:nth-of-type(1)::before {
+        margin-right: 10px;
+    }
+
+    #billets > li > span:nth-of-type(2) {
+        padding: 10px 10px 10px 0;
+    }
+    #billets > li > span:nth-of-type(2) > a+span {
+        display: none;
+    }
+    #billets > li > span:nth-of-type(3) {
+        padding: 0;
+        margin-left: 0;
+    }
+
+    #billets > li > span:nth-of-type(4) a::before {
+        top: 2px;
+    }
+
+    /* les RSS */
+    #post-list > li .date > span {
+        display: none;
+    }
+    #post-list > li .post-title {
+        flex-wrap: wrap;
+    }
+    #post-list > li .post-title .site {
+        display: none;
+    }
+    #post-list > li .post-title .date {
+        flex: 1 0 auto;
+    }
+
+    #post-list > li .post-title > a {
+        flex: 1 0 100%;
+    }
+    #post-list > li .post-title > a:hover {
+        flex: 1 0 100%;
+    }
+
+    /* Slider */
+    #slider-main-content.infos-on + #slider-infos {
+        width: 250px;
+    }
+    #slider-main-content.infos-on #slider-nav-bar {
+    right: 250px;
+    }
+    #slider-main-content.infos-on {
+        margin-right: 250px;
+    }
+    #slider-infos > #infos-details {
+        padding-left: 40px;
+    }
+
+}

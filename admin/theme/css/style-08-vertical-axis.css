@@ -1,0 +1,129 @@
+/* container */
+.vertical-axis {
+    position: relative;
+    margin: 100px auto 0 auto;
+    max-width: 960px;
+}
+
+/* item */
+.vertical-axis > .item {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 10px 0 0 0;
+}
+
+
+/* 1 column + blue lines/dots (left) */
+@media (min-width: 480px) {
+    .vertical-axis.va2:before,
+    .vertical-axis.va1:before{
+        max-width: 100%;
+        position: absolute;
+        height: 100%;
+        width: 4px;
+        background: #2196F3;
+        top: 0;
+        bottom: 0;
+        display: block;
+        content: " ";
+        padding: 0;
+        left: 5%;
+    }
+
+    .vertical-axis.va2 > .item,
+    .vertical-axis.va1 > .item {
+        width: 90%;
+        margin: 0 0 0 10%;
+        padding: 10px 3% 0 0;
+    }
+    .vertical-axis.va2 > .item:before,
+    .vertical-axis.va2 > .item:after,
+    .vertical-axis.va1 > .item:before,
+    .vertical-axis.va1 > .item:after {
+        display: block;
+        content: " ";
+        position: absolute;
+        z-index: 1;
+        background: #64B5F6;
+        opacity: 0.9;
+        /* animate color + blue lines and dots position between 1 and 2 columns */
+        transition: all .6s;
+    }
+
+    /* item link to main axis (line) */
+    .vertical-axis.va2 > .item:before,
+    .vertical-axis.va1 > .item:before {
+        top: 41px;
+        height: 4px;
+        left: -5%;
+        right: 0;
+        width: 50%;
+        margin: 0 1% 0 0;
+    }
+
+    /* item link to main axis (dot) */
+    .vertical-axis.va2 > .item:after,
+    .vertical-axis.va1 > .item:after {
+        height: 24px;
+        width: 24px;
+        border-radius: 12px;
+        top: 31px;
+        margin-left: -12px;
+        content: " ";
+        left: -5%;
+        right: 0;
+    }
+
+    .vertical-axis.va2 > .item:hover:before,
+    .vertical-axis.va2 > .item:hover:after,
+    .vertical-axis.va1 > .item:hover:before,
+    .vertical-axis.va1 > .item:hover:after {
+        background: #2196F3;
+        opacity: 1;
+    }
+
+    /* hide item & dot behind the div */
+    .vertical-axis.va2 > .item > div,
+    .vertical-axis.va1 > .item > div {
+        z-index: 4;
+    }
+}
+
+/* 2 columns and center */
+@media (min-width: 860px) {
+    .vertical-axis.va2:before {
+        left: 50%;
+        margin-left: -2px;
+    }
+
+    .vertical-axis.va2 > .item {
+        width: 50%;
+        margin: -50px 50% 0 0;
+        padding: 10px 3% 0 0;
+    }
+
+    .vertical-axis.va2 > .item:nth-child(even) {
+        margin: -50px 0 0 50%;
+        padding: 10px 0 0 3%;
+    }
+
+    .vertical-axis.va2 > .item:before {
+        left: 50%;
+    }
+
+    .vertical-axis.va2 > .item:nth-child(even):after {
+        left: 0;
+        right: 100%;
+    }
+
+    .vertical-axis.va2 > .item:nth-child(even):before {
+        left: 0;
+        right: 50%;
+    }
+
+    .vertical-axis.va2 > .item:after {
+        left: 100%;
+        right: 0;
+    }
+}

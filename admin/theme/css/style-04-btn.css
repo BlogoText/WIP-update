@@ -1,0 +1,224 @@
+/* container for button, used in <form /> */
+.btn-container{
+    text-align: right;
+    margin: 20px auto 5px;
+    width: 100%;
+    padding: 0;
+}
+.btn-container:after,.btn-container:before{display:table;content:" "}.btn-container:after{clear:both}
+
+.btn-container .button-delete, .btn-container .btn-delete {
+    float: left;
+}
+
+.btn {
+    font-weight: 500;
+    vertical-align: middle;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    border: 0px solid transparent;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    position: relative;
+    overflow: hidden;
+    background-color: #9E9E9E;
+    color: #9E9E9E;
+    cursor: pointer;
+    display: inline-block;
+    margin: 2px 4px;
+}
+.btn:focus {
+    outline: 0 !important;
+}
+
+/**
+ * Size
+ */
+.btn-dense {
+    font-size: 0.9rem;
+}
+.btn-dense.btn-icon {
+    width: 30px;
+    height: 30px;
+}
+.btn-dense.btn-icon::before {
+    width: 30px;
+    /* dirty fix ...*/
+    margin-left: -8px;
+    margin-top: -4px;
+}
+.input-large .btn, .btn-large {
+    font-size: 1.1rem;
+}
+.btn-float {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+}
+.btn-float.btn-dense {
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+}
+.btn-float.btn-large {
+    height: 70px;
+    width: 70px;
+    line-height: 70px;
+}
+
+/* force padding */
+.btn{padding: 8px 16px !important;}
+.btn-dense{padding: 4px 8px !important;}
+.input-large .btn, .btn-large{padding: 11px 22px !important;}
+
+/**
+ * colors and actions
+ */
+.btn-cancel,.btn-flat {
+    color: rgba(0, 0, 0, 0.7);
+}
+.btn:hover, .btn:focus {
+    background-color: #616161;
+    color: #616161;
+}
+
+.btn-submit, .btn-blue {
+    background-color: #2196F3;
+    color: #2196F3;
+}
+.btn-submit:hover,.btn-submit:focus, .btn-blue:hover,.btn-blue:focus {
+    background-color: #1976D2;
+    color: #1976D2;
+}
+
+.btn-green {
+    background-color: #4CAF50;
+    color: #4CAF50;
+}
+.btn-green:hover,.btn-green:focus {
+    background-color: #388E3C;
+    color: #388E3C;
+}
+
+.btn-orange {
+    background-color: #FF9800;
+    color: #FF9800;
+}
+.btn-orange:hover,.btn-orange:focus {
+    background-color: #F57C00;
+    color: #F57C00;
+}
+
+.btn-info, .btn-deepPurple {
+    background-color: #673AB7;
+    color: #673AB7;
+}
+.btn-info:hover,.btn-info:focus, .btn-deepPurple:hover,.btn-deepPurple:focus {
+    background-color: #512DA8;
+    color: #512DA8;
+}
+
+.btn-delete, .btn-red {
+    background-color: #F44336;
+    color: #F44336;
+}
+.btn-delete:hover,.btn-delete:focus, .btn-red:hover,.btn-red:focus {
+    background-color: #D32F2F;
+    color: #D32F2F;
+}
+
+/**
+ * visual effect
+ */
+.btn:not(.btn-flat):after {
+    content: '';
+    position: absolute;
+    /* top: 50%; */
+    /* left: 50%; */
+    bottom: -10px;
+    right: -10px;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, .5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+}
+
+/* for mouse focus */
+.btn:active:hover::after {
+    animation: btn-ripple 1s ease-out;
+}
+/* for keyboard focus */
+.btn:focus:not(:hover)::after {
+    background: rgba(255, 255, 255, .3);
+    transform: scale(1, 1);
+    border-radius: 0;
+    opacity: 1;
+}
+
+/* btn links */
+.btn:not(.btn-flat):not(.btn-cancel) {
+    color: white;
+}
+.btn-cancel,.btn-cancel:hover,.btn-cancel:focus,
+.btn-flat,.btn-flat:hover,.btn-flat:focus {
+    box-shadow: none;
+    background-color: transparent;
+}
+.btn-cancel:hover,.btn-cancel:focus,
+.btn-flat:hover,.btn-flat:focus {
+    background: rgba(0, 0, 0, .3);
+    color: white;
+}
+.btn-cancel:active,.btn-cancel.active,
+.btn-flat:active,.btn-flat.active {
+    background: rgba(0, 0, 0, .6);
+    color: white;
+}
+.btn .txt-caption {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Floating action button (FAB)
+------------------------------------------------------------------ */
+#fab {
+    display: inline-block;
+    height: 56px;
+    width: 56px;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.15), 0 6px 12px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    position: fixed;
+    right: 32px;
+    padding: 0;
+    padding-left: 56px;
+    overflow: hidden;
+    bottom: 32px;
+    z-index: 9999;
+    background: #db4437;
+    transition: transform .2s cubic-bezier(.57,.57,.96,1.39);
+    border: 0;
+}
+#fab::before {
+    content: "\e903";
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    color: white;
+    line-height: 56px;
+    text-align: center;
+    font-size: 1.9em;
+    background: #db4437;
+}
+#fab:focus {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.15), 0 8px 17px 0 rgba(0, 0, 0, 0.4);
+    outline: none;
+}
+#fab.hidden {
+    transform: scale(0);
+    transition: transform .2s cubic-bezier(.2,-.5,.5,.2);
+}
+#fab.add-feed::before {
+    content: "\e927";
+}

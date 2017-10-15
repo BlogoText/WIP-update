@@ -1,0 +1,128 @@
+/* loading bar */
+@keyframes loadingBar {
+    from {left:-200px;width:33%;}
+    50% {width:25%;}
+    70% {width:75%;}
+    80% {left:50%;}
+    95% {left:120%;}
+    to {left:100%;}
+}
+
+@keyframes popup-search {
+    0% {
+        width: 50px;
+    }
+    100% {
+        width: 100%;
+        width: calc(100% - 60px - 60px );
+    }
+}
+
+/* rotating loading spinner */
+@keyframes spinnerLoading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+/* bottom left popup in/out sliding */
+@keyframes popup-disapear {
+    10% {
+        bottom: 30px;
+    }
+    80% {
+        bottom: 30px;
+    }
+    90% {
+        bottom: -100px;
+        opacity: 1;
+    }
+    100% {
+        height: 0;
+        opacity: 0;
+        bottom: -999px;
+    }
+}
+
+/* makes a box disapearing */
+@-webkit-keyframes disapear{
+    100% { height: 0; opacity: 0; }
+}
+
+@keyframes disapear {
+    99%  { height: 0; opacity: 0; left: 10px; }
+    100% { height: 0; opacity: 0; left: -1000px; }
+}
+
+/* elements slide smothly to right / left */
+@keyframes slideright {
+      0% { left: 50%; opacity: 1; }
+    100% { left: 60%; opacity: 0; }
+}
+@keyframes slideleft {
+      0% { left: 50%; opacity: 1; }
+    100% { left: 40%; opacity: 0; }
+}
+
+/* material design button-click "ripple" effect */
+@keyframes md-ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(25, 25);
+        opacity: .5;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(25, 25);
+    }
+}
+@keyframes btn-ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(80, 80);
+        opacity: .5;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(80, 80);
+    }
+}
+
+
+@keyframes Notification-fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes Notification-bottomTop {
+    0% {
+        opacity: 0;
+        top: -200px;
+    }
+    20% {
+        opacity: 1;
+        top:0;
+    }
+    80% {
+        top:0;
+        bottom:0;
+    }
+    100%{
+        opacity: 0;
+        top: 200px;
+    }
+}

@@ -1,0 +1,60 @@
+/* ADD-ONS
+------------------------------------------------------------ */
+
+
+#modules > li:hover + div,
+#modules > li + div:hover {
+    transition: box-shadow 0.5s ease 0s;
+    position: relative;
+    box-shadow: 0px 6px 20px 0px rgba(0, 0, 0, 0.19), 0px 8px 17px 0px rgba(0, 0, 0, 0.2);
+}
+
+
+#addons_list .header span:nth-of-type(1) {
+    display: inline-block;
+    flex: 0 0 70px;
+    margin-top: -3px;
+}
+
+#addons_list .header span:nth-of-type(2) {
+    flex: 1 1 auto;
+}
+#addons_list .header span:nth-of-type(3) {
+    font-weight: normal;
+}
+
+@media (min-width: 500px) {
+    #addons_list .content {
+        padding-left: 90px;
+    }
+}
+
+
+#addons_list .content code {
+    display: inline-block;  /* for easy double-clic selection */
+    border: 1px outset #eee;
+    padding: 2px 5px;
+    margin-right: 10px;
+    font-size: .8em;
+}
+
+#modules > li + div code:hover{
+    cursor: help;
+}
+
+/* #modules > li + div:not(last-child) { */
+    /* border-bottom: 1px solid rgba(0, 0, 0, .1); */
+/* } */
+
+.expandable_arrow{
+    font-weight:bold;
+    font-size:2em;
+    padding:0 16px;
+    cursor:pointer;
+    color: #AEAEAE;
+    transform : rotate(-90deg);
+}
+
+#modules > li:hover .expandable-arrow{
+    color: #A4A4A4;
+}
