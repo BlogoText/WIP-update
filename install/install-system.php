@@ -14,7 +14,7 @@
 
 
 require_once BT_ROOT.'inc/settings.php';
-require_once BT_ROOT.folder_admin_get()['0'].'/inc/blog.php';
+require_once BT_ROOT.'admin/inc/blog.php';
 
 function install_proceed_form($datas)
 {
@@ -46,7 +46,14 @@ function install_proceed_form($datas)
     if ($fail === 0) {
 
         // DB : try to connect and detect charset
-        $db_test = db_test($posted['values']['DBMS'], $posted['values']['MYSQL_HOST'], $posted['values']['MYSQL_PORT'], $posted['values']['MYSQL_DB'], $posted['values']['MYSQL_LOGIN'], $posted['values']['MYSQL_PASS']);
+        $db_test = db_test(
+                        $posted['values']['DBMS'],
+                        $posted['values']['MYSQL_HOST'],
+                        $posted['values']['MYSQL_PORT'],
+                        $posted['values']['MYSQL_DB'],
+                        $posted['values']['MYSQL_LOGIN'],
+                        $posted['values']['MYSQL_PASS']
+                    );
 
         if (is_string($db_test)) {
             ++$fail;
@@ -83,7 +90,10 @@ function install_proceed_form($datas)
     }
 
     // move admin folder
-    if ($fail === 0 && !empty($posted['values']['adminfold']) && $posted['values']['adminfold'] != folder_admin_get()) {
+    if ($fail === 0
+     && !empty($posted['values']['adminfold'])
+     && $posted['values']['adminfold'] != 'admin'
+    ) {
         // check if folder name available
         if (is_dir($posted['values']['adminfold'])) {
             ++$fail;
@@ -99,7 +109,7 @@ function install_proceed_form($datas)
                 $posted['errors']['adminfold'] = 'sys_adminfold_fail_to_rename';
             }
             // add file to detect adminfol
-            if (file_put_contents($new_folder.'.adminfold', '', LOCK_EX) !== false) {
+            if (!is_file($new_folder.'.adminfold') && !file_put_contents($new_folder.'.adminfold', '', LOCK_EX) !== false) {
                 ++$fail;
                 $posted['errors']['adminfold'] = 'sys_adminfold_fail_to_write';
             }

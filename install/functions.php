@@ -55,6 +55,9 @@ function folder_admin_get()
         $found[] = str_replace(array($bt_root, '/.adminfold'), '', $path);
     }
     if (count($found) === 0) {
+        if (is_dir(BT_ROOT.'admin/')) {
+            return array('admin');
+        }
         die('no admin folder found');
     }
     return $found;
