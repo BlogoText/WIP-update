@@ -657,17 +657,23 @@ function secure_host_to_path($http_host)
         $exploded['path'] = '';
     }
 
+    // var_dump(BT_RUN_INSTALL);
     // work on path
     if (!empty($exploded['path'])) {
-        $tmp = explode('/', $exploded['path']);
+        $tmp = explode('/', trim(trim($exploded['path']), '/'));
+        // var_dump($tmp);
         // url point to a PHP file ?
         if (strpos($exploded['path'], '.php') !== false) {
             array_pop($tmp);
+            // var_dump($tmp);
         }
-        // admin URL ?
-        if (IS_IN_ADMIN) {
+        // admin or install URL ?
+        if (IS_IN_ADMIN || BT_RUN_INSTALL) {
             array_pop($tmp);
+            // var_dump($tmp);
         }
+        // array_filter($tmp, function($value) { return trim($value) != ''; });
+        // array_filter($tmp);
         $exploded['path'] = implode('-', $tmp);
     }
 

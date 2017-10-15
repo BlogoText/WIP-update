@@ -141,7 +141,7 @@ function install_system_handler()
     }
 
     $link = ((isset($_SERVER['HTTPS']) || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) ? 'https://' : 'http://');
-    $link .= htmlentities($_SERVER['HTTP_HOST'].dirname(dirname($_SERVER['REQUEST_URI'])));
+    $link .= htmlentities($_SERVER['HTTP_HOST'].dirname($_SERVER['REQUEST_URI']));
     // bug fix for DIRECTORY_SEPARATOR
     $link = str_replace('\\', '/', $link);
     // ensure it ends with a slash

@@ -113,9 +113,7 @@ if (!BT_RUN_INSTALL && is_dir(BT_ROOT.'install/')) {
 
 
 // get vhost path
-$vhost = secure_host_to_path($_SERVER['HTTP_HOST']);
-// var_dump(secure_host_to_path($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']));
-
+$vhost = secure_host_to_path($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 if (is_array($vhost)) {
     die($vhost['message']);
 }
