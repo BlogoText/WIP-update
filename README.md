@@ -9,7 +9,7 @@ Use this on local environments.
 
 ## How to test ?
 
- - Donwload the first release (BT 3.8.0-dev)
+ - Donwload the first release (BT 3.8.0-dev)[https://github.com/BlogoText/WIP-update/releases/tag/3.8.0-dev]
  - Install it on local environments
  - login into admin
  - check the new dashboard
