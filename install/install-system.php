@@ -109,7 +109,7 @@ function install_proceed_form($datas)
                 $posted['errors']['adminfold'] = 'sys_adminfold_fail_to_rename';
             }
             // add file to detect adminfol
-            if (!is_file($new_folder.'.adminfold') && !file_put_contents($new_folder.'.adminfold', '', LOCK_EX) !== false) {
+            if ($fail === 0 && (file_put_contents($new_folder.'.adminfold', '', LOCK_EX) === false)) {
                 ++$fail;
                 $posted['errors']['adminfold'] = 'sys_adminfold_fail_to_write';
             }

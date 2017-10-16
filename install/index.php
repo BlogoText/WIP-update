@@ -32,8 +32,14 @@ define('BT_RUN_INSTALL', true);
 
 // load basic
 require_once 'functions.php';
+
+$admin_fold = folder_admin_get();
+if ($admin_fold === false) {
+    die('No admin fold found');
+}
+
 // boot
-require_once '../admin/inc/boot.php';
+require_once '../'.$admin_fold.'/inc/boot.php';
 
 // get lang
 lang_install_get();

@@ -46,21 +46,25 @@ function lang_install_set()
 
 /**
  * find admin folder
+ * Since user can rename admin folder and we need to update it ...
+ *
+ * return string or false
  */
 function folder_admin_get()
 {
-    $found = array();
     $bt_root = defined('BT_ROOT') ? BT_ROOT : dirname(dirname(__file__)).'/';
-    foreach (glob($bt_root.'*/.adminfold') as $path) {
-        $found[] = str_replace(array($bt_root, '/.adminfold'), '', $path);
+    $found = glob($bt_root.'*/.adminfold');
+    // "There Can Be Only One" - Got it ?
+    if (count($found) > 1) {
+        return false;
     }
-    if (count($found) === 0) {
+    if (!isset($found['0'])) {
         if (is_dir(BT_ROOT.'admin/')) {
             return array('admin');
         }
         die('no admin folder found');
     }
-    return $found;
+    return str_replace(array($bt_root, '/.adminfold'), '', $found['0']);
 }
 
 
