@@ -1,4 +1,16 @@
 <?php
+/**
+ * BlogoText
+ * https://blogotext.org/
+ * https://github.com/BlogoText/blogotext/
+ *
+ * 2006      Frederic Nassar
+ * 2010-2016 Timo Van Neerden
+ * 2016-.... Mickaël Schoentgen and the community
+ *
+ * Under MIT / X11 Licence
+ * http://opensource.org/licenses/MIT
+ */
 
 $version = filter_input(INPUT_GET, 'v', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -21,12 +33,18 @@ if (extension_loaded('zlib') and ob_get_length() > 0) {
 
 header('Content-type: text/css; charset: UTF-8');
 
-
-$no_cache = (strpos($version, '-') !== false);
+/**
+ * put cache to /var/000_common/cache/
+ */
+$cache_path = '../../../var/000_common/cache/';
+$cache_file = $cache_path.'admin-cached-'.$version.'.css.php';
 // check if cache exists
-if (file_exists('cache/cached-'.$version.'.css') && !$no_cache) {
-    echo file_get_contents('cache/cached-'.$version.'.css');
-    die;
+if (file_exists($cache_file)) {
+    $cached = file_get_contents($cache_file);
+    if ($cached !== false && strpos($cached, '<?php die(); ?>') !== false) {
+        echo substr($cached, 15);
+        die;
+    }
 }
 
 // css files
@@ -132,8 +150,13 @@ $content = str_replace('  !important', ' !important', $content);
 $content = str_replace(array("\r", "\n"), '', $content);
 
 // put in cache
-if (!$no_cache) {
-    file_put_contents('cache/cached-'.$version.'.css', '@charset "utf-8";'."\n".$content);
+if (is_dir($cache_path)) {
+    file_put_contents(
+            $cache_file,
+            '<?php die(); ?>'
+                .'@charset "utf-8";'."\n"
+                .$content
+        );
 }
 
 echo '@charset "utf-8";'."\n";

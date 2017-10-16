@@ -1,15 +1,16 @@
 <?php
-# *** LICENSE ***
-# This file is part of BlogoText.
-# https://github.com/BlogoText/blogotext/
-#
-# 2006      Frederic Nassar.
-# 2010-2016 Timo Van Neerden.
-# 2016-.... Mickaël Schoentgen and the community.
-#
-# BlogoText is free software.
-# You can redistribute it under the terms of the MIT / X11 Licence.
-# *** LICENSE ***
+/**
+ * BlogoText
+ * https://blogotext.org/
+ * https://github.com/BlogoText/blogotext/
+ *
+ * 2006      Frederic Nassar
+ * 2010-2016 Timo Van Neerden
+ * 2016-.... Mickaël Schoentgen and the community
+ *
+ * Under MIT / X11 Licence
+ * http://opensource.org/licenses/MIT
+ */
 
 require_once 'inc/boot.php';
 require_once BT_ROOT_ADMIN.'inc/blog.php';

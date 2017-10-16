@@ -1,15 +1,15 @@
 <?php
 /**
- * This file is part of BlogoText.
+ * BlogoText
+ * https://blogotext.org/
  * https://github.com/BlogoText/blogotext/
  *
- * 2006      Frederic Nassar.
- * 2010-2016 Timo Van Neerden.
- * 2016-.... Mickaël Schoentgen and the community.
- * 2017-.... RemRem and the community.
+ * 2006      Frederic Nassar
+ * 2010-2016 Timo Van Neerden
+ * 2016-.... Mickaël Schoentgen and the community
  *
- * BlogoText is free software.
- * You can redistribute it under the terms of the MIT / X11 Licence.
+ * Under MIT / X11 Licence
+ * http://opensource.org/licenses/MIT
  */
 
 require_once 'inc/boot.php';

@@ -1,15 +1,16 @@
 <?php
-# *** LICENSE ***
-# This file is part of BlogoText.
-# https://github.com/BlogoText/blogotext/
-#
-# 2006      Frederic Nassar.
-# 2010-2016 Timo Van Neerden.
-# 2016-.... Mickaël Schoentgen and the community.
-#
-# BlogoText is free software.
-# You can redistribute it under the terms of the MIT / X11 Licence.
-# *** LICENSE ***
+/**
+ * BlogoText
+ * https://blogotext.org/
+ * https://github.com/BlogoText/blogotext/
+ *
+ * 2006      Frederic Nassar
+ * 2010-2016 Timo Van Neerden
+ * 2016-.... Mickaël Schoentgen and the community
+ *
+ * Under MIT / X11 Licence
+ * http://opensource.org/licenses/MIT
+ */
 
 /**
  * return a text for counting items displayed
@@ -34,7 +35,10 @@ function tpl_items_counter($item_name, $current, $max)
 }
 
 /**
- * menu haut panneau admin
+ * Admin top nav with subnav
+ *
+ * @params $title string
+ * @return string, HTML
  */
 function tpl_show_topnav($title)
 {
@@ -200,8 +204,8 @@ function tpl_get_html_head($title, $show_search = false)
     if (!auth_check_session()) {
         return $html;
     }
-    $html .= '<script src="theme/js/lang.js.php"></script>';
-    $html .= '<script src="theme/js/script.js.php"></script>';
+    $html .= '<script src="theme/js/lang.js.php?v='.BLOGOTEXT_VERSION.'"></script>';
+    $html .= '<script src="theme/js/script.js.php?v='.BLOGOTEXT_VERSION.'"></script>';
     $html .= '<div id="header">';
         $html .= '<div id="top">';
         $html .= tpl_show_msg();
