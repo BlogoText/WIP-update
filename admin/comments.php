@@ -224,9 +224,9 @@ function comments_form_admin($article_id, $erreurs, $datas)
 
     // COMMENT FORM ON ADMIN SIDE : +always_open –captcha –previsualisation –verif
     $html .= '<form id="form-commentaire'.$form_cont['bt_id'].'" class="form-commentaire comm-edit-hidden-bloc block-white" method="post" action="?'.$_SERVER['QUERY_STRING'].'#erreurs">';
-        if (empty($edit_comm)) {
-            $html .= '<legend>'.$GLOBALS['lang']['comment_write'].'</legend>';
-        }
+    if (empty($edit_comm)) {
+        $html .= '<legend>'.$GLOBALS['lang']['comment_write'].'</legend>';
+    }
 
     // main comm field
         $html .= '<div class="input">';
@@ -252,12 +252,12 @@ function comments_form_admin($article_id, $erreurs, $datas)
         $html .= hidden_input('_verif_envoi', '1');
         $html .= hidden_input('token', token_set());
         // begin with some additional stuff on comment "edit".
-        if (!empty($edit_comm)) {
-            $html .= hidden_input('is_it_edit', 'yes');
-            $html .= hidden_input('comment_id', $form_cont['bt_id']);
-            $html .= hidden_input('status', $form_cont['bt_statut']);
-            $html .= hidden_input('ID', $form_cont['ID']);
-        }
+    if (!empty($edit_comm)) {
+        $html .= hidden_input('is_it_edit', 'yes');
+        $html .= hidden_input('comment_id', $form_cont['bt_id']);
+        $html .= hidden_input('status', $form_cont['bt_statut']);
+        $html .= hidden_input('ID', $form_cont['ID']);
+    }
         // submit buttons
         $html .= '<div class="btn-container">';
             $html .= '<button class="btn btn-cancel" type="button" onclick="unfold(this);">'.$GLOBALS['lang']['cancel'].'</button>';
@@ -291,12 +291,12 @@ function display_comment($comment, $withLink)
                     $html .= '<span class="author"><a href="?filtre=author.'.$comment['bt_author'].'" title="'.$GLOBALS['lang']['label_all_comm_by_author'].'">'.$comment['bt_author'].'</a> :</span>';
                 $html .= '</div>';
 
-                if ($withLink == 1 && !empty($comment['bt_title'])) {
-                    $html .= '<span class="link-article">';
-                        $html .= $GLOBALS['lang']['sur'];
-                        $html .= ' <a href="'.basename($_SERVER['SCRIPT_NAME']).'?post_id='.$comment['bt_article_id'].'">'.$comment['bt_title'].'</a>';
-                    $html .= '</span>';
-                }
+    if ($withLink == 1 && !empty($comment['bt_title'])) {
+        $html .= '<span class="link-article">';
+            $html .= $GLOBALS['lang']['sur'];
+            $html .= ' <a href="'.basename($_SERVER['SCRIPT_NAME']).'?post_id='.$comment['bt_article_id'].'">'.$comment['bt_title'].'</a>';
+        $html .= '</span>';
+    }
 
                 $html .= '<div class="comm-options">';
                     $html .= '<ul>';

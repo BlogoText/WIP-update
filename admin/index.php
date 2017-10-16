@@ -91,15 +91,15 @@ function display_graph($arr, $title, $cls)
             $html .= '<canvas height="150" width="400"></canvas>';
             $html .= '<div class="graphique" id="'.$cls.'">';
                 $html .= '<div class="month"><div class="month-bar"></div></div>';
-                foreach ($arr as $data) {
-                    $html .= '<div class="month">';
-                        $html .= '<div class="month-bar" style="height:'.$data['nb_scale'].'px;margin-top:'.max(3 - $data['nb_scale'], 0).'px"></div>';
-                        $html .= '<span class="month-nb">'.$data['nb'].'</span>';
-                        $html .= '<a href="blog-articles.php?filtre='.$data['date'].'">';
-                            $html .= '<span class="month-name">'.mb_substr(month_en_lettres(substr($data['date'], 4, 2)), 0, 3).'<br />'.substr($data['date'], 2, 2).'</span>';
-                        $html .='</a>';
-                    $html .= '</div>';
-                }
+    foreach ($arr as $data) {
+        $html .= '<div class="month">';
+            $html .= '<div class="month-bar" style="height:'.$data['nb_scale'].'px;margin-top:'.max(3 - $data['nb_scale'], 0).'px"></div>';
+            $html .= '<span class="month-nb">'.$data['nb'].'</span>';
+            $html .= '<a href="blog-articles.php?filtre='.$data['date'].'">';
+                $html .= '<span class="month-name">'.mb_substr(month_en_lettres(substr($data['date'], 4, 2)), 0, 3).'<br />'.substr($data['date'], 2, 2).'</span>';
+            $html .='</a>';
+        $html .= '</div>';
+    }
             $html .= '</div>';
         $html .= '</div>';
     $html .= '</div>';
@@ -192,7 +192,6 @@ if ($query) {
     if (isset($order['home-me'])) {
         $order_list[$order['home-me']] = '<li data-id="home-me" draggable="true" >me</li>';
         $t_order = $order['home-me'];
-        
     } else {
         $order_list[] = '<li data-id="home-me" draggable="true" >me</li>';
         $t_order = '';
@@ -209,7 +208,6 @@ if ($query) {
     if (isset($order['home-update'])) {
         $order_list[$order['home-update']] = '<li data-id="home-update" draggable="true" >BT update</li>';
         $t_order = $order['home-update'];
-        
     } else {
         $order_list[] = '<li data-id="home-update" draggable="true" >BT update</li>';
         $t_order = '';

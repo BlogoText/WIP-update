@@ -154,7 +154,7 @@ if (is_array($tableau) && isset($tableau['0'])) {
         }
     } else {
         if ($have_more) {
-            $btn_previous_page = 
+            $btn_previous_page =
                 '<li><a href="feeds.php?'.$paramUrl.'p=previous&amp;date='.$last_item['bt_date'].'&amp;id='.$last_item['ID'].'">&lt;</a></li>';
         }
         $sql = '

@@ -103,7 +103,7 @@ function grabChangeOrder()
         {
             url: '_dashboard.ajax.php',
             datas: toSave,
-            onLoad: function(response) {
+            onLoad: function (response) {
                 console.log(response);
                 if (response.success == 1) {
                     notifSuccess(response.message);

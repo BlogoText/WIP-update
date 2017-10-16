@@ -113,7 +113,7 @@ function quickly_handle_url($url, $save_file = false)
             $charset = is_utf8($extFile['body']) ? 'utf-8' : '';
         }
 
-        // convert body in UTF8 
+        // convert body in UTF8
         if (strtolower($charset) != 'utf-8') {
             $extFile['body'] = utf8_encode($extFile['body']);
         }
@@ -132,7 +132,6 @@ function quickly_handle_url($url, $save_file = false)
     if ($GLOBALS['quickly_download_files'] == 2
      && ($return['type'] == 'file' || $return['type'] == 'image')
     ) {
-        
     }
 
     return $return;
@@ -338,7 +337,6 @@ if ($form_submission !== null) {
 
 // show list
 if (empty($vars['ID'])) {
-
     // Subnav
     if (empty($vars['url'])) {
         echo '<div id="subnav">';

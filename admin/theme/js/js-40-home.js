@@ -36,17 +36,17 @@ function graphTabOnClick()
 
 function homeBoot()
 {
-    for (var i=0; i < tabs.length; i++){
+    for (var i=0; i < tabs.length; i++) {
         var thisTabs = tabs[i],
             tabsHead = thisTabs.querySelectorAll(".tabs-head li"),
             tabsContent = thisTabs.querySelectorAll(".tabs-content");
-        for (var j=0; j < tabsHead.length; j++){
-            tabsHead[j].onclick = function(){
+        for (var j=0; j < tabsHead.length; j++) {
+            tabsHead[j].onclick = function () {
                 var el = this;
-                for (var k=0; k < tabsHead.length; k++){
+                for (var k=0; k < tabsHead.length; k++) {
                     tabsHead[k].classList.remove('active');
                 }
-                for (var k=0; k < tabsContent.length; k++){
+                for (var k=0; k < tabsContent.length; k++) {
                     tabsContent[k].classList.remove('active');
                 }
                 el.classList.add('active');

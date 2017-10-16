@@ -120,7 +120,7 @@ function folder_create($path, $htaccess = false, $recursive = true)
 }
 
 /**
- * secure a path and his parents by putting some files 
+ * secure a path and his parents by putting some files
  * "index.php" and ".htaccess", if there is not a "index.php" in the folder
  *
  * @params $path string, absolute path

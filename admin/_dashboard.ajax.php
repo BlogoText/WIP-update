@@ -23,22 +23,22 @@ if ($posted === null) {
 
 if (empty($posted)) {
     echo json_encode(
-            array(
+        array(
                 'success' => false,
                 'message' => 'no datas'
             )
-        );
+    );
     exit();
 }
 
 $datas = json_decode($posted, true);
 if (json_last_error() !== JSON_ERROR_NONE) {
     echo json_encode(
-            array(
+        array(
                 'success' => false,
                 'message' => 'wrong format'
             )
-        );
+    );
     exit();
 }
 

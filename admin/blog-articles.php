@@ -24,7 +24,7 @@ function posts_list($arr)
     if ($arr) {
         $out .= '<ul class="block-white" id="billets">';
         foreach ($arr as $post) {
-            $title = str_replace(array("\r", "\n", "\t"), ' ' ,trim(htmlspecialchars(mb_substr(strip_tags(((empty($post['bt_abstract'])) ? $post['bt_content'] : $post['bt_abstract'])), 0, 249), ENT_QUOTES))).'…';
+            $title = str_replace(array("\r", "\n", "\t"), ' ', trim(htmlspecialchars(mb_substr(strip_tags(((empty($post['bt_abstract'])) ? $post['bt_content'] : $post['bt_abstract'])), 0, 249), ENT_QUOTES))).'…';
             $out .= '<li'.(($post['bt_date'] > date('YmdHis')) ? ' class="planned"' : '').'>';
                 $out .= '<span class="'.(($post['bt_statut']) ? 'on' : 'off').'">';
                     $out .= '<a href="blog-write.php?post_id='.$post['bt_id'].'" title="'.$title.'">'.$post['bt_title'].'</a>';

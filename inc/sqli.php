@@ -65,7 +65,7 @@ function pdo_mb4_cleaner($var)
 /**
  * connect to database
  * if there is NO argument to this function, function will uses constants
- * 
+ *
  * @params $type string, 'mysql' or 'sqlite'
  * @params $host string
  * @params $port int

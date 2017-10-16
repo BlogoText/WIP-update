@@ -55,7 +55,7 @@ hook_trigger('system-start');
  */
 if (isset($_GET['random'])) {
     try {
-        // getting nb articles, gen random num, then select one article 
+        // getting nb articles, gen random num, then select one article
         // is much faster than "sql(order by rand limit 1)"
         $sql = '
             SELECT count(ID)
@@ -132,7 +132,7 @@ if (isset($_GET['d']) && preg_match('#^\d{4}/\d{2}/\d{2}/\d{2}/\d{2}/\d{2}#', $_
             if (isset($_POST['_form'])
              && $_POST['_form'] == 'comment'
             ) {
-                // 
+                //
                 comments_proceed_public($billets[0]['bt_id']);
             }
         } else {
@@ -160,7 +160,8 @@ if (isset($_GET['d']) && preg_match('#^\d{4}/\d{2}/\d{2}/\d{2}/\d{2}/\d{2}#', $_
     content_infos_set('list', false);
     content_infos_set('id', $id);
 
-    $tableau = db_items_list('
+    $tableau = db_items_list(
+        '
             SELECT *
               FROM `links`
              WHERE `bt_id` = ?
@@ -193,14 +194,14 @@ if (isset($_GET['d']) && preg_match('#^\d{4}/\d{2}/\d{2}/\d{2}/\d{2}/\d{2}#', $_
     if (!empty($tableau[0])) {
         $GLOBALS['tpl_class'] = 'content-blog content-list content-list-all';
         content_infos_push(
-                array(
+            array(
                     'type' => 'links',
                     'list' => false,
                     'id' => $_GET['id'],
                     'type' => 'html',
                     'http' => 404
                 )
-            );
+        );
     } else {
         $GLOBALS['tpl_class'] = 'content-blog content-list content-list-all content-404';
         http_response_code(404);

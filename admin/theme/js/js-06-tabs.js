@@ -23,11 +23,12 @@ class Tabs {
         this.hasActive = false;
 
         var self = this;
-        Array.prototype.forEach.call(this.tabsHead, function(el, i){
+        Array.prototype.forEach.call(this.tabsHead, function (el, i) {
             if (el.classList.contains('active')) {
                 this.hasActive = true;
             }
-            el.onclick = function(){self.tabShow(i)};
+            el.onclick = function () {
+                self.tabShow(i)};
         });
 
         // set the first one active if there is none
@@ -44,10 +45,10 @@ class Tabs {
 
             console.log(tab_eq);
             console.log(elHead);
-        for (var k=0; k < this.tabsHead.length; k++){
+        for (var k=0; k < this.tabsHead.length; k++) {
             this.tabsHead[k].classList.remove('active');
         }
-        for (var k=0; k < this.tabsContent.length; k++){
+        for (var k=0; k < this.tabsContent.length; k++) {
             this.tabsContent[k].classList.remove('active');
         }
 

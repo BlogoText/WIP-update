@@ -155,19 +155,19 @@ function tags_form($where, $postTags)
 
     $html = '<div class="input">';
         $html .= '<div id="tag_bloc">';
-        if ($tags) {
-            $html .= '<datalist id="htmlListTags">';
-            foreach ($tags as $tag => $i) {
-                $html .= '<option value="'.addslashes($tag).'">';
-            }
-            $html .= '</datalist>';
+    if ($tags) {
+        $html .= '<datalist id="htmlListTags">';
+        foreach ($tags as $tag => $i) {
+            $html .= '<option value="'.addslashes($tag).'">';
         }
+        $html .= '</datalist>';
+    }
             $html .= '<ul id="selected">';
-            foreach ($listTags as $i => $tag) {
-                if ($tag['value']) {
-                    $html .= '<li><span>'.$tag['value'].'</span><a href="javascript:void(0)" onclick="removeTag(this.parentNode)">×</a></li>';
-                }
-            }
+    foreach ($listTags as $i => $tag) {
+        if ($tag['value']) {
+            $html .= '<li><span>'.$tag['value'].'</span><a href="javascript:void(0)" onclick="removeTag(this.parentNode)">×</a></li>';
+        }
+    }
             $html .= '</ul>';
             $html .= '<input list="htmlListTags" type="text" class="text" id="type_tags" name="tags" placeholder="'.ucfirst($GLOBALS['lang']['placeholder_tags']).'" />';
             $html .= '<input type="hidden" id="categories" name="bt_tags" value="" />';

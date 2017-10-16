@@ -53,10 +53,10 @@ function settings_vhost_write($new_settings)
     $settings = array_merge(settings_vhost_default(), $current, $new_settings);
 
     return file_ini_write(
-                FILE_VHOST_SETTINGS,
-                $settings,
-                'This file is part of BlogoText and contains some settings for a VHOST'
-            );
+        FILE_VHOST_SETTINGS,
+        $settings,
+        'This file is part of BlogoText and contains some settings for a VHOST'
+    );
 }
 
 function settings_vhost_form_sanitize($posted)
@@ -194,8 +194,7 @@ function settings_vhost_form_sanitize($posted)
     if (isset($posted['format_time'])) {
         // must add the filter_var() === 0
         if (!filter_var($posted['format_time'], FILTER_VALIDATE_INT) === 0
-         && !filter_var($posted['format_time'], FILTER_VALIDATE_INT, array('min_range' => 0, 'max_range' => 4)
-         )) {
+         && !filter_var($posted['format_time'], FILTER_VALIDATE_INT, array('min_range' => 0, 'max_range' => 4))) {
             $return['values']['format_time'] = $default['format_time'];
             $return['errors']['format_time'] = 'filter';
         }

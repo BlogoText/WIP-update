@@ -194,9 +194,9 @@ if (!isset($_GET['do']) and !isset($_FILES['file'])) {
         // export data in zip
         echo '<fieldset class="form-inline block_legend block_small block-white hidden" id="e_zip">';
             echo '<legend>'.$GLOBALS['lang']['maintenance_incl_quoi'].'</legend>';
-            if (DBMS == 'sqlite') {
-                echo '<div class="input">'.select_yes_no('incl-sqlit', 0, $GLOBALS['lang']['bak_incl_sqlit']).'</div>';
-            }
+    if (DBMS == 'sqlite') {
+        echo '<div class="input">'.select_yes_no('incl-sqlit', 0, $GLOBALS['lang']['bak_incl_sqlit']).'</div>';
+    }
             echo '<div class="input">'.select_yes_no('incl-files', 0, $GLOBALS['lang']['bak_incl_files']).'</div>';
             echo '<div class="input">'.select_yes_no('incl-confi', 0, $GLOBALS['lang']['bak_incl_confi']).'</div>';
             echo '<div class="input">'.select_yes_no('incl-theme', 0, $GLOBALS['lang']['bak_incl_theme']).'</div>';
@@ -239,11 +239,11 @@ if (!isset($_GET['do']) and !isset($_FILES['file'])) {
         echo '<legend>'.$GLOBALS['lang']['maintenance_optim'].'</legend>';
 
             echo '<div class="input">'.select_yes_no('opti-file', 0, $GLOBALS['lang']['bak_opti_miniature']).'</div>';
-            if (DBMS == 'sqlite') {
-                echo '<div class="input">'.select_yes_no('opti-vacu', 0, $GLOBALS['lang']['bak_opti_vacuum']).'</div>';
-            } else {
-                echo hidden_input('opti-vacu', 0);
-            }
+    if (DBMS == 'sqlite') {
+        echo '<div class="input">'.select_yes_no('opti-vacu', 0, $GLOBALS['lang']['bak_opti_vacuum']).'</div>';
+    } else {
+        echo hidden_input('opti-vacu', 0);
+    }
             echo '<div class="input">'.select_yes_no('opti-comm', 0, $GLOBALS['lang']['bak_opti_recountcomm']).'</div>';
 
             echo '<div class="input">'.select_yes_no('opti-rss', 0, $GLOBALS['lang']['bak_opti_supprreadrss']).'</div>';
@@ -343,9 +343,9 @@ if (!isset($_GET['do']) and !isset($_FILES['file'])) {
                 echo '<fieldset class="pref">';
                     echo '<legend>'.$GLOBALS['lang']['bak_restor_done'].'</legend>';
                     echo '<ul>';
-                    foreach ($message as $type => $nb) {
-                        echo '<li>'.$GLOBALS['lang']['label_'.$type].' : '.$nb.'</li>';
-                    }
+                foreach ($message as $type => $nb) {
+                    echo '<li>'.$GLOBALS['lang']['label_'.$type].' : '.$nb.'</li>';
+                }
                     echo '</ul>';
                     echo '<p class="btn-container">';
                     echo '<button class="btn btn-submit" type="submit">'.$GLOBALS['lang']['submit'].'</button>';

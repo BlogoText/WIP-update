@@ -152,11 +152,11 @@ $content = str_replace(array("\r", "\n"), '', $content);
 // put in cache
 if (is_dir($cache_path)) {
     file_put_contents(
-            $cache_file,
-            '<?php die(); ?>'
+        $cache_file,
+        '<?php die(); ?>'
                 .'@charset "utf-8";'."\n"
                 .$content
-        );
+    );
 }
 
 echo '@charset "utf-8";'."\n";

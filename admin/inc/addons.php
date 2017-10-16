@@ -119,12 +119,12 @@ function addons_html_get_list_addons($addons, $filtre)
                     $out .= '<p><strong>Using this addon</strong></p>';
                     // tag
                     $out .= '<p>';
-                    if (function_exists('a_'.$addon['tag'])) {
-                        $out .= $GLOBALS['lang']['addons_insert_code'];
-                        $out .= '<code title="'.$GLOBALS['lang']['label_code_theme'].'">'.'{addon_'.$addon['tag'].'}'.'</code>';
-                    } else {
-                        $out .= '<small>'.$GLOBALS['lang']['label_no_code_theme'].'</small>';
-                    }
+            if (function_exists('a_'.$addon['tag'])) {
+                $out .= $GLOBALS['lang']['addons_insert_code'];
+                $out .= '<code title="'.$GLOBALS['lang']['label_code_theme'].'">'.'{addon_'.$addon['tag'].'}'.'</code>';
+            } else {
+                $out .= '<small>'.$GLOBALS['lang']['label_no_code_theme'].'</small>';
+            }
                     $out .= '</p>';
 
                     // public / admin / admin-page
@@ -142,20 +142,20 @@ function addons_html_get_list_addons($addons, $filtre)
                     $out .= '<h4>About</h4>';
                     $out .= '<p>';
                         // author URL
-                        if (!empty($addon['url'])) {
-                            $out .= '<a href="'.$addon['url'].'">'.$GLOBALS['lang']['label_owner_url'].'</a>';
-                        }
+            if (!empty($addon['url'])) {
+                $out .= '<a href="'.$addon['url'].'">'.$GLOBALS['lang']['label_owner_url'].'</a>';
+            }
                     $out .= '</p>';
                 $out .= '</div>';
                 // buttons
                 $out .= '<div class="footer">';
-                    if (file_exists($addon_path.'admin-page.php')) {
-                        $out .= '<a class="btn btn-blue btn-flat" href="addon-page.php?addon='.$addon['tag'].'">advanced</a>';
-                    }
+            if (file_exists($addon_path.'admin-page.php')) {
+                $out .= '<a class="btn btn-blue btn-flat" href="addon-page.php?addon='.$addon['tag'].'">advanced</a>';
+            }
                     // addon params or buttons
-                    if (isset($addon['settings']) || isset($addon['buttons']) || (is_dir(addon_path_vhost_cache($addon['tag'], false)))) {
-                        $out .= '<a class="btn btn-blue btn-flat" href="addon-settings.php?addon='. $addon['tag'] .'">'.$GLOBALS['lang']['addons_settings_link_title'].'</a>';
-                    }
+            if (isset($addon['settings']) || isset($addon['buttons']) || (is_dir(addon_path_vhost_cache($addon['tag'], false)))) {
+                $out .= '<a class="btn btn-blue btn-flat" href="addon-settings.php?addon='. $addon['tag'] .'">'.$GLOBALS['lang']['addons_settings_link_title'].'</a>';
+            }
                 $out .= '</div>';
             $out .= '</div>';
         }

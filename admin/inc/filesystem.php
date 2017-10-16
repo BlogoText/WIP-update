@@ -136,7 +136,7 @@ function file_uniq_filename($folder, $filename)
     $extension = pathinfo($filename, PATHINFO_EXTENSION);
     $i = 1;
 
-    while(file_exists($folder.$t_filename.'_'.$i.'.'.$extension)) {
+    while (file_exists($folder.$t_filename.'_'.$i.'.'.$extension)) {
         $i++;
     }
 
@@ -537,7 +537,8 @@ function file_guess_type($extension)
  * @params $filepath string
  * @return string
  */
-function file_get_mime($filepath) {
+function file_get_mime($filepath)
+{
     $mime = false;
 
     if (function_exists('finfo_file')) {

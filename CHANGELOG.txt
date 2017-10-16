@@ -9,13 +9,14 @@
 # note : 1 note by subject
 
 [3.8.0-dev]
+    note : This changelog file will not be complete due to the consequent number of changes
     note : ! WIP : if you want to try it, don't do it in prod !
     note : ! WIP : don't update an existing BlogoText with this WIP version, not ready for this
     - del admin/install.php
     - del some functions rel2abs_admin(), confirmation(), no_confirmation() ...
-    - add install/* new install system
+    - add new install system in install/
     - add DIR_VHOST_BACKUP and URL_VHOST_BACKUP, for /var/backup/{VHOST}/
-    - add var/000_common/ used for core cache, logs, favatars for BT (common to all VHOST)...
+    - add var/000_common/ used for core cache, logs, favatars (common to all VHOST)...
     - add BT update from admin side (use the new install system)
     - add sitemap.php
     - add robots.txt
@@ -36,6 +37,15 @@
     - upd admin JS/CSS files, explode, move, add cache server side and dynamic compression
     - upd font icons, reduce size and add woff2 format
     - fix bugs with log_error() wrong path with BT in a subfolder and absolute path clean up (with BT_ROOT)
+
+[3.7.6]
+    note : issue #318, thanks to @chb9
+    - fix XSS issue in comments
+
+[3.7.5]
+    - fix feed aggregator multiple errors on pages navigation
+    - fix feed aggregator filter for 4 bytes char
+    - fix admin settings page, wrong behavior for themes listing
 
 [3.7.4]
     - fix wrong behavior on link (title) from feed aggregator

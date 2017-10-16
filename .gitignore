@@ -1,12 +1,12 @@
-bt_backup/
 .cache/
+bt_backup/
 config/
 databases/
 files/
 img/
-.htaccess
 themes/default/avatars/*.png
 admin/cache/favicons/*.png
 admin/cache/avatars/*.png
-*.phar
 var/
+.htaccess
+*.phar

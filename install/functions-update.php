@@ -59,12 +59,17 @@ function update_get_installed_version()
     if (file_exists('../config/settings.php')) {
         return '3.7';
     }
+    // can't keep this...
     // 3.8.X and >
     if (function_exists('settings_vhost_get')) {
         $settings = settings_vhost_get(false);
         if ($settings !== false && isset($settings['BT_SETTINGS_VERSION'])) {
             return $settings['BT_SETTINGS_VERSION'];
         }
+    }
+    // 3.8.X and >
+    if (file_exists(BT_ROOT.'var/000_common/version.txt')) {
+        return file_get_contents(BT_ROOT.'var/000_common/version.txt');
     }
 
     return false;
@@ -75,9 +80,15 @@ function update_proceed()
     $have_update = true;
     $reports = array();
 
+    // clean cache
+    if (!cache_clean_all()) {
+        // to do : change to error message (and continue ?)
+        die('can\'t to clean cache');
+    }
+
     $i = 0;
     while ($have_update) {
-        $version = update_get_installed_versionn();
+        $version = update_get_installed_version();
         var_dump($version);
         $update_proceed = null;
         $update_vars = array();
@@ -106,4 +117,21 @@ function update_proceed()
 
     var_dump($reports);
     return $reports;
+}
+
+/**
+ * VHOST READY
+ * to do : move to somewhere else
+ */
+function cache_clean_all()
+{
+    $error = 0;
+    // clean vhost cache from 3.8.0
+    foreach (glob(BT_ROOT."var/*/cache/", GLOB_ONLYDIR) as $path){
+        if (!folder_rmdir_recursive($path)) {
+            ++$error;
+        }
+    }
+
+    return (bool)($error === 0);
 }

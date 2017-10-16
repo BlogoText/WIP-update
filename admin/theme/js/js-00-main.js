@@ -15,7 +15,8 @@
 /**
  * shortcut to display a succesful message
  */
-function notifSuccess(msg){
+function notifSuccess(msg)
+{
     var notif = new Notification();
     notif
         .setText(msg)
@@ -25,7 +26,8 @@ function notifSuccess(msg){
 /**
  * shortcut to display a fail message
  */
-function notifFail(msg){
+function notifFail(msg)
+{
     var notif = new Notification();
     notif
         .setText(msg)
@@ -45,8 +47,8 @@ function jsonRequest(params)
         p.async = params.async || true;
         p.url = params.url || null;
         p.datas = params.datas || null;
-        p.onLoad = params.onLoad || function(){};
-        p.onError = params.onError || function(){};
+        p.onLoad = params.onLoad || function (){};
+        p.onError = params.onError || function (){};
 
     // set the request
     var xhr = new XMLHttpRequest();
@@ -58,7 +60,7 @@ function jsonRequest(params)
     // console.log(auth_token_response_get());
     xhr.onreadystatechange = function (aEvt) {
         if (xhr.readyState == 4) {
-            if(xhr.status == 200) {
+            if (xhr.status == 200) {
                 try {
                     var resp = JSON.parse(this.responseText);
                 } catch (e) {
@@ -84,7 +86,7 @@ function jsonRequest(params)
         }
     };
 
-    xhr.onerror = function(e) {
+    xhr.onerror = function (e) {
         if (typeof p.onError === "function") {
             p.onError();
         }

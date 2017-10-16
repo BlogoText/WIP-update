@@ -54,6 +54,3 @@ if (!$errors) {
     $file = ($newFile === null) ? $file : $newFile;
     die(printf($json, 'files.php?file_id='.$file['bt_id'].'&amp;edit', 'success', token_set()));
 }
-
-
-

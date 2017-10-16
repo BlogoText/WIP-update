@@ -355,7 +355,7 @@ if (is_array($tableau) && isset($tableau['0'])) {
     // detect previous / next page
     if ($sqlOrder == 'ASC') {
         if ($have_more) {
-            $btn_next_page = 
+            $btn_next_page =
                 '<li><button type="button" id="next_feeds" '
                 .'onclick="location.href=\'feed.php?'.$paramUrl.'p=next&amp;date='.$first_item['bt_date'].'&amp;id='.$first_item['ID'].'\'"></button></li>';
         }
@@ -371,7 +371,7 @@ if (is_array($tableau) && isset($tableau['0'])) {
         }
     } else {
         if ($have_more) {
-            $btn_previous_page = 
+            $btn_previous_page =
                 '<li><button type="button" id="prev_feeds" '
                 .'onclick="location.href=\'feed.php?'.$paramUrl.'p=previous&amp;date='.$last_item['bt_date'].'&amp;id='.$last_item['ID'].'\'"></button></li>';
         }
@@ -446,13 +446,13 @@ if ($config !== null) {
         $out .= '<div id="post-list-title">';
             $out .= '<ul class="rss-menu-buttons">';
                 // mark as read
-                if ($site) {
-                    $out .= '<li><button type="button" onclick="sendMarkReadRequest(\'site\', \''.$site.'\', false);" id="markasread" title="'.$GLOBALS['lang']['rss_label_markasread'].'"></button></li>';
-                } elseif ($fold) {
-                    $out .= '<li><button type="button" onclick="sendMarkReadRequest(\'folder\', \''.$fold.'\', true);" id="markasread" title="'.$GLOBALS['lang']['rss_label_markasread'].'"></button></li>';
-                } else {
-                    $out .= '<li><button type="button" onclick="sendMarkReadRequest(\'all\');" id="markasread" title="'.$GLOBALS['lang']['rss_label_markasread'].'"></button></li>';
-                }
+    if ($site) {
+        $out .= '<li><button type="button" onclick="sendMarkReadRequest(\'site\', \''.$site.'\', false);" id="markasread" title="'.$GLOBALS['lang']['rss_label_markasread'].'"></button></li>';
+    } elseif ($fold) {
+        $out .= '<li><button type="button" onclick="sendMarkReadRequest(\'folder\', \''.$fold.'\', true);" id="markasread" title="'.$GLOBALS['lang']['rss_label_markasread'].'"></button></li>';
+    } else {
+        $out .= '<li><button type="button" onclick="sendMarkReadRequest(\'all\');" id="markasread" title="'.$GLOBALS['lang']['rss_label_markasread'].'"></button></li>';
+    }
                 // open all
                 $out .= '<li><button type="button" onclick="openAllItems(this);" id="openallitemsbutton" title="'.$GLOBALS['lang']['rss_label_unfoldall'].'"></button></li>';
                 // Navigation: previous/next pages

@@ -68,7 +68,6 @@ function comments_db_push($comment)
 
         // update counter
         comments_db_upd_counter($comment['bt_article_id']);
-
     } catch (Exception $e) {
         return $e->getMessage();
     }
@@ -121,8 +120,8 @@ function comments_proceed_public($article_id)
     }
 
     $posted = filter_input_array(
-                INPUT_POST,
-                array(
+        INPUT_POST,
+        array(
                         'commentaire' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
                         'author' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
                         'email' => FILTER_VALIDATE_EMAIL,
@@ -133,7 +132,7 @@ function comments_proceed_public($article_id)
                         'allowcuki' => FILTER_VALIDATE_INT,
                         'subscribe' => FILTER_VALIDATE_INT,
                     )
-            );
+    );
 
     // add some additionnal check
     $allowed_urls = array('http://', 'https://');
@@ -183,7 +182,7 @@ function comments_proceed_public($article_id)
 }
 
 /**
- * to do 4.0 : 
+ * to do 4.0 :
  *   - rewrite to allow custom form
  */
 function comments_form($article_id, $datas = array(), $errors = array())

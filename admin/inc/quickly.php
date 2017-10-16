@@ -198,8 +198,7 @@ function quickly_form_sanitize($posted)
                                 'ID', 'bt_id', 'bt_type', 'bt_wiki_content',
                                 'bt_title', 'bt_link', 'bt_tags', 'bt_statut'
                             );
-        } else if (
-            $return['values']['action'] == 'edit'
+        } else if ($return['values']['action'] == 'edit'
          || $return['values']['action'] == 'step-2'
         ) {
             $errors_allowed = array('quickly', 'bt_wiki_content', 'bt_tags');
@@ -241,8 +240,7 @@ function quickly_form($datas)
     if (!empty($datas['values']['ID'])) {
         $action = 'edit';
         $focus = 'bt_title';
-    } else if (
-        !empty($datas['values']['bt_title'])
+    } else if (!empty($datas['values']['bt_title'])
      || !empty($datas['values']['bt_wiki_content'])
     ) {
         $focus = empty($datas['values']['bt_title']) ? 'bt_title' : 'bt_wiki_content';
@@ -261,7 +259,6 @@ function quickly_form($datas)
                 $html .= '<div class="tips" id="testtttt"></div>';
             $html .= '</div>';
         $html .= '</div>';
-
     } else {
         $html .= '<legend>Quickly</legend>';
         if ($datas['values']['bt_type'] == 'image') {
@@ -311,9 +308,9 @@ function quickly_form($datas)
         $html .= hidden_input('action', $action);
 
         $html .= '<p class="btn-container">';
-            if (!empty($datas['values']['ID'])) {
-                $html .= '<button class="btn btn-delete" type="button" name="supprimer" onclick="rmArticle(this)">'.$GLOBALS['lang']['delete'].'</button>';
-            }
+    if (!empty($datas['values']['ID'])) {
+        $html .= '<button class="btn btn-delete" type="button" name="supprimer" onclick="rmArticle(this)">'.$GLOBALS['lang']['delete'].'</button>';
+    }
             $html .= '<button class="btn btn-cancel" type="button" onclick="redirection(\'links.php\');">'.$GLOBALS['lang']['cancel'].'</button>';
             $html .= '<button class="btn btn-submit" type="submit" name="editer">'.$GLOBALS['lang']['send'].'</button>';
         $html .= '</p>';
@@ -344,11 +341,11 @@ function quickly_show_item($link)
             $html .= '<a class="title-lien" href="'.$link['bt_link'].'">'.$link['bt_title'].'</a>';
             $html .= '<span class="date">';
                 $html .= date_formate($link['bt_id']).', '.time_formate($link['bt_id']);
-                if (!$link['bt_statut']) {
-                    $html .= ' <span title="Private">&#x1F512;</span>';
-                } else {
-                    $html .= ' <span title="Public">&#x1F513;</span>';
-                }
+    if (!$link['bt_statut']) {
+        $html .= ' <span title="Private">&#x1F512;</span>';
+    } else {
+        $html .= ' <span title="Public">&#x1F513;</span>';
+    }
             $html .= '</span>';
             $html .= '<div class="link-options">';
                 $html .= '<ul>';
@@ -358,23 +355,23 @@ function quickly_show_item($link)
             $html .= '</div>';
         $html .= '</div>';
 
-        if ($link['bt_type'] == 'link'
+    if ($link['bt_type'] == 'link'
          && is_img($link['bt_link'])
         ) {
-            $html .= '<div class="link-content">';
-                $html .= '<img src="'.$link['bt_link'].'" />';
-            $html .= '</div>';
-        }
+        $html .= '<div class="link-content">';
+            $html .= '<img src="'.$link['bt_link'].'" />';
+        $html .= '</div>';
+    }
         $html .= ($link['bt_content']) ? '<div class="link-content">'.$link['bt_content'].'</div>' : '';
 
         $html .= '<div class="link-footer">';
             $html .= '<ul class="link-tags">';
-                if ($link['bt_tags']) {
-                    $tags = explode(',', $link['bt_tags']);
-                    foreach ($tags as $tag) {
-                        $html .= '<li class="tag"><a href="?filtre=tag.'.urlencode(trim($tag)).'">'.trim($tag).'</a></li>';
-                    }
-                }
+    if ($link['bt_tags']) {
+        $tags = explode(',', $link['bt_tags']);
+        foreach ($tags as $tag) {
+            $html .= '<li class="tag"><a href="?filtre=tag.'.urlencode(trim($tag)).'">'.trim($tag).'</a></li>';
+        }
+    }
             $html .= '</ul>';
             $html .= '<span class="hard-link">'.$link['bt_link'].'</span>';
         $html .= '</div>';

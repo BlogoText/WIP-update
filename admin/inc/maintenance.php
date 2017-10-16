@@ -259,7 +259,7 @@ function insert_table_comments($tableau)
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $req = $GLOBALS['db_handle']->prepare($query);
         $req->execute(
-                array(
+            array(
                         $com['bt_type'],
                         $com['bt_id'],
                         $com['bt_article_id'],
@@ -272,7 +272,7 @@ function insert_table_comments($tableau)
                         $com['bt_subscribe'],
                         $com['bt_statut']
                     )
-            );
+        );
     }
     $GLOBALS['db_handle']->commit();
     return $return;
@@ -632,4 +632,3 @@ function parse_html($content)
     }
     return $arrOut;
 }
-

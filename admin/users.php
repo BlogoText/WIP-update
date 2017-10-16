@@ -18,7 +18,7 @@ require_once 'inc/boot.php';
 $uid = filter_input(INPUT_GET, 'uid', FILTER_VALIDATE_INT);
 $action = (in_array(filter_input(INPUT_GET, 'action'), array('edit', 'session'))) ? filter_input(INPUT_GET, 'action') : null;
 $form_action = filter_input(INPUT_POST, 'form_action');
-$posted_usid = filter_input(INPUT_POST, 'usid', FILTER_DEFAULT , FILTER_REQUIRE_ARRAY);
+$posted_usid = filter_input(INPUT_POST, 'usid', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 
 $breadcrumb_1 = '';
 if ($uid !== null) {
@@ -42,8 +42,7 @@ $form_success = null;
 
 // proceed form
 if ($form_action !== null && TOKEN_CHECK === true) {
-    if (
-        ($form_action == 'edit' && $uid !== null && isset($users_info[$uid]))
+    if (($form_action == 'edit' && $uid !== null && isset($users_info[$uid]))
      || $form_action == 'create'
     ) {
         $form_success = false;
@@ -87,7 +86,7 @@ if ($action == 'edit' && $uid !== null && isset($users_info[$uid])) {
         $form_datas['values'] = $users_info[$uid];
     }
 } else if ($action == 'session' && $uid !== null && isset($users_info[$uid])) {
-    // 
+    //
     $user_sessions = array();
     $i = 0;
     foreach ($all_sessions as $usid => $s) {
@@ -120,7 +119,6 @@ if (!empty($breadcrumb_1.$breadcrumb_2)) {
 }
 
 if ($uid !== null && isset($users_info[$uid]) && $action === null) {
-    
         echo '<div class="showhide show block-white block_medium">';
             echo '<div class="header">';
                 echo '<span>'.$users_info[$uid]['pseudo'].'</span>';

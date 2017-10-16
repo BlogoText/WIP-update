@@ -53,12 +53,12 @@ function tpl_show_topnav($title)
             $html .= '<li><a href="blog-write.php" id="lien-nouveau"'.(($tab == 'blog-write.php') ? ' class="current"' : '').'>'.$GLOBALS['lang']['article_new'].'</a></li>';
             $html .= '<li><a href="comments.php" id="lien-lscom"'.(($tab == 'comments.php') ? ' class="current"' : '').'>'.$GLOBALS['lang']['title_comments'].'</a></li>';
             $html .= '<li><a href="files.php" id="lien-fichiers"'.(($tab == 'files.php') ? ' class="current"' : '').'>'.ucfirst($GLOBALS['lang']['label_files']).'</a></li>';
-        if ($GLOBALS['quickly_enabled']) {
-            $html .= '<li><a href="links.php" id="lien-links"'.(($tab == 'links.php') ? ' class="current"' : '').'>'.ucfirst($GLOBALS['lang']['label_links']).'</a></li>';
-        }
-        if ($GLOBALS['use_feed_reader']) {
-            $html .= '<li><a href="feed.php" id="lien-rss"'.(($tab == 'feed.php') ? ' class="current"' : '').'>'.ucfirst($GLOBALS['lang']['label_feeds']).'</a></li>';
-        }
+    if ($GLOBALS['quickly_enabled']) {
+        $html .= '<li><a href="links.php" id="lien-links"'.(($tab == 'links.php') ? ' class="current"' : '').'>'.ucfirst($GLOBALS['lang']['label_links']).'</a></li>';
+    }
+    if ($GLOBALS['use_feed_reader']) {
+        $html .= '<li><a href="feed.php" id="lien-rss"'.(($tab == 'feed.php') ? ' class="current"' : '').'>'.ucfirst($GLOBALS['lang']['label_feeds']).'</a></li>';
+    }
         $html .= '</ul>';
     $html .= '</div>';
 
@@ -146,7 +146,6 @@ function tpl_get_search_form($topNav = true)
     }
 
     if ($topNav) {
-        
     } else {
         $attrs = array(
             'form_id' => 'search-2',
@@ -162,9 +161,9 @@ function tpl_get_search_form($topNav = true)
     $html .= '<form action="?" method="get" id="'.$attrs['form_id'].'" class="'.$attrs['form_class'].'">';
         $html .= '<input class="'.$attrs['search_class'].'" id="'.$attrs['search_id'].'" name="q" type="search" size="20" value="'.$requete.'" placeholder="'.$GLOBALS['lang']['placeholder_search'].'" accesskey="'.$attrs['search_accesskey'].'" />';
         $html .= '<button class="'.$attrs['btn_class'].'" type="submit">'.$GLOBALS['lang']['search'].'</button>';
-        if (isset($_GET['mode'])) {
-            $html .= '<input id="'.$attrs['mode_id'].'" name="mode" type="hidden" value="'.htmlspecialchars(stripslashes($_GET['mode'])).'"/>';
-        }
+    if (isset($_GET['mode'])) {
+        $html .= '<input id="'.$attrs['mode_id'].'" name="mode" type="hidden" value="'.htmlspecialchars(stripslashes($_GET['mode'])).'"/>';
+    }
     $html .= '</form>';
 
     return $html;
@@ -181,18 +180,18 @@ function tpl_get_html_head($title, $show_search = false)
         $html .= '<meta charset="UTF-8" />';
         $html .= '<link type="text/css" rel="stylesheet" href="theme/css/style.css.php?v='.BLOGOTEXT_VERSION.'" />';
         // custom css & js
-        if (isset($GLOBALS['tpl_admin_custom'])) {
-            if (isset($GLOBALS['tpl_admin_custom']['css'])) {
-                foreach ($GLOBALS['tpl_admin_custom']['css'] as $css) {
-                    $html .= '<link type="text/css" rel="stylesheet" href="'.$css.'?v='.BLOGOTEXT_VERSION.'" />';
-                }
-            }
-            if (isset($GLOBALS['tpl_admin_custom']['js'])) {
-                foreach ($GLOBALS['tpl_admin_custom']['js'] as $js) {
-                    $html .= '<script src="'.$js.'?v='.BLOGOTEXT_VERSION.'"></script>';
-                }
+    if (isset($GLOBALS['tpl_admin_custom'])) {
+        if (isset($GLOBALS['tpl_admin_custom']['css'])) {
+            foreach ($GLOBALS['tpl_admin_custom']['css'] as $css) {
+                $html .= '<link type="text/css" rel="stylesheet" href="'.$css.'?v='.BLOGOTEXT_VERSION.'" />';
             }
         }
+        if (isset($GLOBALS['tpl_admin_custom']['js'])) {
+            foreach ($GLOBALS['tpl_admin_custom']['js'] as $js) {
+                $html .= '<script src="'.$js.'?v='.BLOGOTEXT_VERSION.'"></script>';
+            }
+        }
+    }
         $html .= '<meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />';
         $html .= '<meta name="robots" content="none" />';
         $html .= '<title>'.$title.' | '.BLOGOTEXT_NAME.'</title>';
@@ -209,17 +208,17 @@ function tpl_get_html_head($title, $show_search = false)
     $html .= '<div id="header">';
         $html .= '<div id="top">';
         $html .= tpl_show_msg();
-        if ($show_search) {
-            $requete = (isset($_GET['q'])) ? htmlspecialchars(stripslashes($_GET['q'])) : '';
-            $mode = (isset($_GET['mode'])) ? htmlspecialchars(stripslashes($_GET['mode'])) : '';
-            $html .= '<form action="?" method="get" id="search">';
-                $html .= '<input id="q" name="q" type="search" size="20" value="'.$requete.'" accesskey="f" />';
-                $html .= '<button class="btn-search" type="submit">'.$GLOBALS['lang']['search'].'</button>';
-                if (isset($_GET['mode'])) {
-                    $html .= '<input id="mode" name="mode" type="hidden" value="'.$mode.'" />';
-                }
-            $html .= '</form>';
+    if ($show_search) {
+        $requete = (isset($_GET['q'])) ? htmlspecialchars(stripslashes($_GET['q'])) : '';
+        $mode = (isset($_GET['mode'])) ? htmlspecialchars(stripslashes($_GET['mode'])) : '';
+        $html .= '<form action="?" method="get" id="search">';
+            $html .= '<input id="q" name="q" type="search" size="20" value="'.$requete.'" accesskey="f" />';
+            $html .= '<button class="btn-search" type="submit">'.$GLOBALS['lang']['search'].'</button>';
+        if (isset($_GET['mode'])) {
+            $html .= '<input id="mode" name="mode" type="hidden" value="'.$mode.'" />';
         }
+            $html .= '</form>';
+    }
         $html .= tpl_show_topnav($title);
         $html .= '</div>';
     $html .= '</div>';

@@ -288,7 +288,7 @@ function display_form_post($post, $errors)
         $defaultSeconds = $post['seconds'];
         $defaultTitle = $post['bt_title'];
         // abstract: if empty, it is generated but not added to the DTB
-        $defaultAbstract = get_entry( 'articles', 'bt_abstract', $post['bt_id']);
+        $defaultAbstract = get_entry('articles', 'bt_abstract', $post['bt_id']);
         $defaultNotes = $post['bt_notes'];
         $defaultTags = $post['bt_tags'];
         $defaultContent = htmlspecialchars($post['bt_wiki_content']);

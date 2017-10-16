@@ -37,13 +37,14 @@ function get_ip()
  *
  * @return string
  */
-function random_salt($length = 32){
+function random_salt($length = 32)
+{
     if (function_exists('random_bytes')) {
         return bin2hex(random_bytes($length));
     }
     if (function_exists('mcrypt_create_iv')) {
         return bin2hex(mcrypt_create_iv($length, MCRYPT_DEV_URANDOM));
-    } 
+    }
     if (function_exists('openssl_random_pseudo_bytes')) {
         return bin2hex(openssl_random_pseudo_bytes($length));
     }
@@ -574,62 +575,62 @@ function user_edit_form($datas, $uid = '', $ask_pass = false)
             $form .= '<label for="pseudo">'.$GLOBALS['lang']['users_pseudo_label'].'</label>';
         $form .= '</div>';
         $form .= '<div class="tips">'.$GLOBALS['lang']['users_pseudo_tips'].'</div>';
-        if (isset($datas['errors']['pseudo'])) {
-            $form .= '<div class="error">'.$lang_error.$GLOBALS['lang']['error_'.$datas['errors']['pseudo']].'</div>';
-        }
+    if (isset($datas['errors']['pseudo'])) {
+        $form .= '<div class="error">'.$lang_error.$GLOBALS['lang']['error_'.$datas['errors']['pseudo']].'</div>';
+    }
 
         $form .= '<div class="input">';
             $form .= '<input required type="text" name="login" id="login" size="30" value="'.$datas['values']['login'].'" class="text" placeholder="'.$GLOBALS['lang']['users_login_placeholder'].'" />';
             $form .= '<label for="login">'.$GLOBALS['lang']['users_login_label'].'</label>';
         $form .= '</div>';
         $form .= '<div class="tips">'.$GLOBALS['lang']['users_login_tips'].'</div>';
-        if (isset($datas['errors']['login'])) {
-            $form .= '<div class="error">'.$lang_error.$GLOBALS['lang']['error_'.$datas['errors']['login']].'</div>';
-        }
+    if (isset($datas['errors']['login'])) {
+        $form .= '<div class="error">'.$lang_error.$GLOBALS['lang']['error_'.$datas['errors']['login']].'</div>';
+    }
 
         $form .= '<div class="input">';
             $form .= '<input type="password" pattern=".{'.USER_PASS_MIN_STRLEN.',}" name="password" id="password" size="30" value="" class="text" '.$pass_required.' />';
             $form .= '<label for="password">'.$GLOBALS['lang']['users_pass_label'].'</label>';
         $form .= '</div>';
-        if ($is_update) {
-            $form .= '<div class="tips">'.$GLOBALS['lang']['users_pass_tips_no_update'].'</div>';
-        }
+    if ($is_update) {
+        $form .= '<div class="tips">'.$GLOBALS['lang']['users_pass_tips_no_update'].'</div>';
+    }
         $form .= '<div class="tips">'.$GLOBALS['lang']['users_pass_tips'].'</div>';
-        if (isset($datas['errors']['password'])) {
-            $form .= '<div class="error">'.$lang_error.$GLOBALS['lang']['error_'.$datas['errors']['password']].'</div>';
-        }
+    if (isset($datas['errors']['password'])) {
+        $form .= '<div class="error">'.$lang_error.$GLOBALS['lang']['error_'.$datas['errors']['password']].'</div>';
+    }
 
         $form .= '<div class="input">';
             $form .= '<input required type="email" name="email" id="email" size="30" value="'.$datas['values']['email'].'" class="text" placeholder="'.$GLOBALS['lang']['users_email_placeholder'].'" />';
             $form .= '<label for="email">'.$GLOBALS['lang']['users_email_label'].'</label>';
         $form .= '</div>';
         $form .= '<div class="tips">'.$GLOBALS['lang']['users_email_tips'].'</div>';
-        if (isset($datas['errors']['email'])) {
-            $form .= '<div class="error">'.$lang_error.$GLOBALS['lang']['error_'.$datas['errors']['email']].'</div>';
-        }
+    if (isset($datas['errors']['email'])) {
+        $form .= '<div class="error">'.$lang_error.$GLOBALS['lang']['error_'.$datas['errors']['email']].'</div>';
+    }
 
         // datas for action type
-        if ($is_update) {
-            $form .= '<input type="hidden" name="form_action" value="edit" />';
-            $form .= '<input type="hidden" name="user_id" value="'.$uid.'" />';
-        } else {
-            $form .= '<input type="hidden" name="form_action" value="create" />';
-        }
+    if ($is_update) {
+        $form .= '<input type="hidden" name="form_action" value="edit" />';
+        $form .= '<input type="hidden" name="user_id" value="'.$uid.'" />';
+    } else {
+        $form .= '<input type="hidden" name="form_action" value="create" />';
+    }
         $form .= hidden_input('token', token_set());
 
         // is not install, ask for password confirm
-        if (!BT_RUN_INSTALL && $ask_pass) {
-            $auth_error = (isset($datas['errors']['auth_check_pass'])) ? $datas['errors']['auth_check_pass'] : '';
-            $form .= auth_form_id_confirm($auth_error);
-        }
+    if (!BT_RUN_INSTALL && $ask_pass) {
+        $auth_error = (isset($datas['errors']['auth_check_pass'])) ? $datas['errors']['auth_check_pass'] : '';
+        $form .= auth_form_id_confirm($auth_error);
+    }
 
         $form .= '<div class="btn-container">';
-        if ($is_update) {
-            $form .= '<a class="btn btn-cancel" href="users.php">Cancel</a>';
-            $form .= '<button class="btn btn-blue btn-submit" type="submit" name="proceed">'.$GLOBALS['lang']['users_btn_update_user'].'</button>';
-        } else {
-            $form .= '<button class="btn btn-blue btn-submit" type="submit" name="proceed">'.$GLOBALS['lang']['users_btn_create_user'].'</button>';
-        }
+    if ($is_update) {
+        $form .= '<a class="btn btn-cancel" href="users.php">Cancel</a>';
+        $form .= '<button class="btn btn-blue btn-submit" type="submit" name="proceed">'.$GLOBALS['lang']['users_btn_update_user'].'</button>';
+    } else {
+        $form .= '<button class="btn btn-blue btn-submit" type="submit" name="proceed">'.$GLOBALS['lang']['users_btn_create_user'].'</button>';
+    }
         $form .= '</div>';
 
     $form .= '</form>';

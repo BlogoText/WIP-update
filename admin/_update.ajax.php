@@ -96,7 +96,6 @@ echo 'Done !<br />',"\r\n";
 // to do : add test if new release is '-dev' or x.x change (not x.x.X)
 $folder_to_remove = array('admin', 'inc');
 foreach ($folder_to_remove as $fold) {
-    
 }
 
 

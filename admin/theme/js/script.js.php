@@ -145,11 +145,11 @@ foreach ($search_replace as $s => $r) {
 // put in cache
 if (is_dir($cache_path)) {
     file_put_contents(
-            $cache_file,
-            '<?php die(); ?>'
+        $cache_file,
+        '<?php die(); ?>'
                 '"use strict";'."\n"
                 .$content
-        );
+    );
 }
 
 echo $content;

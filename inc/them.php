@@ -192,7 +192,7 @@ function conversions_theme_article($text, $article)
     $text = str_replace($GLOBALS['tpl_tags']['form_comment'], comments_form($article['bt_id'], array(), array()), $text);
     $text = str_replace($GLOBALS['tpl_tags']['rss_comments'], 'rss.php?id='.$article['bt_id'], $text);
     $text = str_replace($GLOBALS['tpl_tags']['article_title'], $article['bt_title'], $text);
-    $text = str_replace($GLOBALS['tpl_tags']['article_chapo'], ((empty($article['bt_abstract'])) ? 
+    $text = str_replace($GLOBALS['tpl_tags']['article_chapo'], ((empty($article['bt_abstract'])) ?
                 mb_substr(strip_tags($article['bt_content']), 0, 249).'…'
               : $article['bt_abstract']), $text);
     $text = str_replace($GLOBALS['tpl_tags']['article_content'], $article['bt_content'], $text);

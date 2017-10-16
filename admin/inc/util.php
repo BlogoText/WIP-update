@@ -25,4 +25,3 @@ function fichier_robots()
     $content .= "Sitemap: ".$GLOBALS['racine']."sitemap.php\n";
     return (file_put_contents($robots, $content, LOCK_EX) !== false);
 }
-

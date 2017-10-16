@@ -18,7 +18,7 @@ function checkboxToggleReset(chk)
 }
 
 
-var calculateContentHeight = function( el, scanAmount ) {
+var calculateContentHeight = function ( el, scanAmount ) {
     var origHeight = el.style.height,
         height = el.offsetHeight,
         scrollHeight = el.scrollHeight,
@@ -52,7 +52,7 @@ var calculateContentHeight = function( el, scanAmount ) {
     }
 }
 
-var calculateHeight = function(el) {
+var calculateHeight = function (el) {
     var ta = el,
         style = (window.getComputedStyle) ?
             window.getComputedStyle(ta) : ta.currentStyle,
@@ -111,7 +111,8 @@ class textarea_advanced {
             return false;
         }
         var self = this;
-        this.input.removeEventListener("mousedown", function(){self.resize = false;}, false);
+        this.input.removeEventListener("mousedown", function () {
+            self.resize = false;}, false);
     }
 
     resizeStart()
@@ -122,7 +123,8 @@ class textarea_advanced {
         // run a first time, in case of default value
         this._resize();
         var self = this;
-        this.input.addEventListener("keyup", function(){self._resize()}, true);
+        this.input.addEventListener("keyup", function () {
+            self._resize()}, true);
         this.resize = true;
     }
 
