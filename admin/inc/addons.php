@@ -55,7 +55,7 @@ function addon_set_disabled($addon_id)
     if (!is_file($file)) {
         return true;
     }
-    $success = unlink($file);
+    $success = @unlink($file);
     if ($success === true && isset($GLOBALS['addons'][$addon_id])) {
         $GLOBALS['addons'][$addon_id]['enabled'] = false;
     }
@@ -65,6 +65,10 @@ function addon_set_disabled($addon_id)
 /**
  * set settings for 1 addon
  * related to /admin/addon-settings.php
+ *
+ * @params $addon_id string
+ * @params $setting array
+ * @return bool
  */
 function addon_set_settings($addon_id, $settings)
 {

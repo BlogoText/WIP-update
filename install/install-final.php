@@ -19,7 +19,7 @@ $template_final = install_get_template('tpl-install-final', 'FR_fr');
 // if (DBMS == 'sqlite') {
     // $db_file = './db_test_charset.sqlite';
     // if (isset($db_file) && is_file($db_file)) {
-        // unlink($db_file);
+        // @unlink($db_file);
     // }
 // }
 

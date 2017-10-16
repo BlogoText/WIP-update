@@ -20,7 +20,7 @@
 $system = array(
     'test_php_version' => (int)(version_compare(PHP_VERSION, MINIMAL_PHP_REQUIRED_VERSION, '>')),
     'test_php_db' => (int)(extension_loaded('pdo_sqlite') || extension_loaded('pdo_mysql')),
-    'test_path_write' => (int)(is_writable('../')),
+    'test_path_write' => (int)(@is_writable('../')),
     'test_php_intl' => (int)(extension_loaded('intl') && function_exists('idn_to_utf8')),
     'test_php_xml' => (int)(extension_loaded('xml') && function_exists('simplexml_load_string')),
     'test_php_curl' => (int)extension_loaded('curl'),

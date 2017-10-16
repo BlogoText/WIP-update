@@ -574,7 +574,7 @@ function addons_db_get()
  */
 function addons_db_del()
 {
-    return unlink(FILE_VHOST_ADDONS_DB);
+    return @unlink(FILE_VHOST_ADDONS_DB);
 }
 
 

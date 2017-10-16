@@ -266,12 +266,12 @@ function file_handler_del($file)
     // remove physical file on disk if it exists
     if (is_file($dossier.$file['bt_filename']) and isset($tbl_id)) {
         $liste_fichiers = rm_dots_dir(scandir($dossier)); // liste les fichiers réels dans le dossier
-        if (unlink($dossier.$file['bt_filename'])) { // fichier physique effacé
+        if (@unlink($dossier.$file['bt_filename'])) { // fichier physique effacé
             if ($file['bt_type'] == 'image') {
                 // Delete the preview picture if any
                 $img = file_thumbnail_path($dossier.$file['bt_filename']);
                 if (is_file($img)) {
-                    unlink($img);
+                    @unlink($img);
                 }
             }
             unset($GLOBALS['files_list'][$tbl_id]); // efface le fichier dans la liste des fichiers.
@@ -319,12 +319,12 @@ function bdd_fichier($fichier, $quoi, $comment, $sup_var)
         // remove physical file on disk if it exists
         if (is_file($dossier.$fichier['bt_filename']) and isset($tbl_id)) {
             $liste_fichiers = rm_dots_dir(scandir($dossier)); // liste les fichiers réels dans le dossier
-            if (unlink($dossier.$fichier['bt_filename'])) { // fichier physique effacé
+            if (@unlink($dossier.$fichier['bt_filename'])) { // fichier physique effacé
                 if ($fichier['bt_type'] == 'image') {
                     // Delete the preview picture if any
                     $img = file_thumbnail_path($dossier.$fichier['bt_filename']);
                     if (is_file($img)) {
-                        unlink($img);
+                        @unlink($img);
                     }
                 }
                 unset($GLOBALS['files_list'][$tbl_id]); // efface le fichier dans la liste des fichiers.

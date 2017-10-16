@@ -66,13 +66,14 @@ function folder_rmdir_recursive($path)
                 ++$error;
             }
         } else {
-            if (!unlink($path.$file)) {
+            if (!@unlink($path.$file)) {
                 ++$error;
             }
         }
     }
     closedir($dir);
-    rmdir($path);
+    @rmdir($path);
+    // check
     if (is_dir($path)) {
         ++$error;
     }

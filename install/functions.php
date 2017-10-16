@@ -111,7 +111,7 @@ function install_get_template($tpl, $lang = 'FR_fr', $datas = array())
         'MINIMAL_PHP_REQUIRED_VERSION' => MINIMAL_PHP_REQUIRED_VERSION,
         'USER_PASS_MIN_STRLEN' => USER_PASS_MIN_STRLEN,
         // 'URL_ROOT' => (!empty(URL_ROOT)) ? URL_ROOT : '',
-        'adminfold' => folder_admin_get()['0'],
+        'adminfold' => folder_admin_get(),
     );
     foreach ($sys as $key => $value) {
         $tpl = str_replace('{'.$key.'}', $value, $tpl);
