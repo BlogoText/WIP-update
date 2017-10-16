@@ -430,7 +430,7 @@ $GLOBALS['lang'] = array(
 'placeholder_tags' => 'tags',
 
 //Formulaire Images
-'label_up_to' => 'Up to',
+'label_up_to' => 'Up to ',
 'label_per_file' => ' per file',
 'label_codes' => 'Integration codes:',
 'img_upload' => 'Sens',

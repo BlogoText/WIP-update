@@ -179,7 +179,7 @@ $GLOBALS['lang'] = array(
 // placeholders
 'placeholder_search' => 'Search',
 //Formulaire Images
-'label_up_to' => 'Up to',
+'label_up_to' => 'Up to ',
 'label_per_file' => ' per file',
 'label_codes' => 'Integration codes:',
 // vérifier les mises à jours

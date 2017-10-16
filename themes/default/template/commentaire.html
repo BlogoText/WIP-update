@@ -1,0 +1,17 @@
+	<article class="comment" id="{commentaire_ancre}">
+		<div class="comm-icon-side">
+			<img class="com-gravatar" width="48" height="48" src="{racine_du_site}/favatar.php?q={commentaire_md5email}" alt="avatar" />
+			<time class="com-date-time" datetime="{commentaire_date_iso}">{commentaire_date}</time>
+		</div>
+		<div class="comm-main-frame">
+			<header class="com-head">
+				<span class="com-author"><span class="author">{commentaire_auteur_lien}</span> a dit :</span>
+			</header>
+			<div class="com-content">
+				{commentaire_contenu}
+			</div>
+			<footer class="com-footer">
+				<span class="com-reply"><a href="#form-commentaire" onclick="reply('[b]@[{commentaire_auteur}|#{commentaire_ancre}] :[/b] ');">@répondre</a> <a href="{commentaire_lien}">#lien</a></span>
+			</footer>
+		</div>
+	</article>

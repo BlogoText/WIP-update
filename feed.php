@@ -65,7 +65,7 @@ if (is_file($flux_cache_lv2_path)) {
         die(readfile($flux_cache_lv2_path));
     }
     // file too old: delete it and go on (and create new file)
-    unlink($flux_cache_lv2_path);
+    @unlink($flux_cache_lv2_path);
 }
 
 
@@ -294,7 +294,7 @@ if (preg_match('#^[0-9]{14}$#', $postId)) {
     // if cache file does not work: delete it.
     if (!is_array($liste)) {
         $liste = array('a' => array(), 'c' => array(), 'l' => array());
-        unlink($fcache);
+        @unlink($fcache);
     }
 
     $liste_rss = array();

@@ -86,7 +86,7 @@ secur_constant();
 define('BLOGOTEXT_NAME', 'BlogoText');
 define('BLOGOTEXT_SITE', 'https://github.com/BlogoText/blogotext');
 define('BLOGOTEXT_VERSION', '3.8.0-dev');
-define('BLOGOTEXT_UA', 'Mozilla/5.0 (Windows NT 10; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0');
+define('BLOGOTEXT_UA', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0');
 
 // Constants: folders
 define('DIR_ADDONS', BT_ROOT.'addons/');
