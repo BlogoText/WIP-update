@@ -1,12 +1,13 @@
 .cache/
+admin/.adminfold
+admin/cache/favicons/*.png
+admin/cache/avatars/*.png
 bt_backup/
 config/
 databases/
 files/
 img/
 themes/default/avatars/*.png
-admin/cache/favicons/*.png
-admin/cache/avatars/*.png
 var/
 .htaccess
 *.phar
