@@ -47,34 +47,34 @@
 
 
 /* apercu */
-#apercu {
+#preview {
     padding: 0 0 1px;
     clear: both;
 }
 
-#apercu {
+#preview {
     margin-bottom: 15px;
 }
 
-#apercu > h2 {
+#preview > h2 {
     background: #f0f0f0;
     border-radius: 3px 3px 0 0;
     padding: 10px 20px;
     border-bottom: 1px solid #ddd
 }
 
-#apercu > div {
+#preview > div {
     margin: 20px;
 }
 
-#apercu blockquote,
+#preview blockquote,
 .link-content blockquote,
 .commentbloc .comm-content blockquote {
     padding: 10px 10px 10px 15px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
-#apercu pre,
+#preview pre,
 .link-content pre,
 .commentbloc .comm-content pre {
     padding: 0;
@@ -85,7 +85,7 @@
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
-#apercu pre[data-language]::before,
+#preview pre[data-language]::before,
 .link-content pre[data-language]::before,
 .commentbloc .comm-content pre[data-language]::before {
     content: attr(data-language);
@@ -96,7 +96,7 @@
     text-align: center;
 }
 
-#apercu pre > code,
+#preview pre > code,
 .link-content pre > code,
 .commentbloc .comm-content pre > code {
     flex: 1 1 auto;
@@ -104,7 +104,7 @@
     padding: 15px;
 }
 
-#apercu img {
+#preview img {
     padding: 2px;
     border: 1px solid #ddd;
     max-width: 100%;
@@ -154,23 +154,23 @@ p.formatbut {
 }
 
 /* buttons : works in comment form and in article form */
-#button01 > span:nth-of-type(1) { background-position: 0px    0px; } /* bold */
-#button02 > span:nth-of-type(1) { background-position: 0px  -24px; } /* ital */
-#button03 > span:nth-of-type(1) { background-position: 0px  -48px; } /* underline */
-#button04 > span:nth-of-type(1) { background-position: 0px  -72px; } /* strike */
-#button05 > span:nth-of-type(1) { background-position: 0px -168px; } /* left align */
-#button06 > span:nth-of-type(1) { background-position: 0px -192px; } /* center align */
-#button07 > span:nth-of-type(1) { background-position: 0px -216px; } /* right align */
-#button08 > span:nth-of-type(1) { background-position: 0px -240px; } /* justify */
-#button09 > span:nth-of-type(1) { background-position: 0px -336px; } /* link */
-#button10 > span:nth-of-type(1) { background-position: 0px -360px; } /* quote */
-#button11 > span:nth-of-type(1) { background-position: 0px -264px; } /* image */
-#button12 > span:nth-of-type(1) { background-position: 0px -384px; } /* code */
+#button01 > span { background-position: 0px    0px; } /* bold */
+#button02 > span { background-position: 0px  -24px; } /* ital */
+#button03 > span { background-position: 0px  -48px; } /* underline */
+#button04 > span { background-position: 0px  -72px; } /* strike */
+#button05 > span { background-position: 0px -168px; } /* left align */
+#button06 > span { background-position: 0px -192px; } /* center align */
+#button07 > span { background-position: 0px -216px; } /* right align */
+#button08 > span { background-position: 0px -240px; } /* justify */
+#button09 > span { background-position: 0px -336px; } /* link */
+#button10 > span { background-position: 0px -360px; } /* quote */
+#button11 > span { background-position: 0px -264px; } /* image */
+#button12 > span { background-position: 0px -384px; } /* code */
 #button13 > span:nth-of-type(1) { background-position: 0px  -96px; } /* color edit */
 #button14 > span:nth-of-type(1) { background-position: 0px -120px; } /* font size edit */
 #button15 > span:nth-of-type(1) { background-position: 0px -144px; } /* unicode char insert */
-#button16 > span:nth-of-type(1) { background-position: 0px -288px; } /* ul list */
-#button17 > span:nth-of-type(1) { background-position: 0px -312px; } /* ol list */
+#button16 > span { background-position: 0px -288px; } /* ul list */
+#button17 > span { background-position: 0px -312px; } /* ol list */
 
 .but-dropdown {
     position: relative;
@@ -260,8 +260,8 @@ p.formatbut {
 
 .but-dropdown .list-spechr {
     text-align: left;
-    width: 384px;
-    height: 94px;
+    width: 370px;
+    /* height: 94px; */
     padding: 3px;
 }
 

@@ -161,12 +161,12 @@ function settings_form($errors = '')
         $html .= '</div>';
 
         $html .= '<div class="input">';
-            $html .= '<textarea id="site_description" name="site_description" cols="35" rows="2" class="text" >'.$values['site_description'].'</textarea>';
+            $html .= '<textarea id="site_description" name="site_description" cols="35" rows="2" class="text">'.$values['site_description'].'</textarea>';
             $html .= '<label for="site_description">'.$GLOBALS['lang']['label_dp_description'].'</label>';
         $html .= '</div>';
 
         $html .= '<div class="input">';
-            $html .= '<textarea id="site_keywords" name="site_keywords" cols="35" rows="2" class="text" >'.$values['site_keywords'].'</textarea>';
+            $html .= '<textarea id="site_keywords" name="site_keywords" cols="35" rows="2" class="text">'.$values['site_keywords'].'</textarea>';
             $html .= '<label for="site_keywords">'.$GLOBALS['lang']['settings_keywords'].'</label>';
         $html .= '</div>';
     $html .= '</div>';
@@ -294,16 +294,6 @@ function settings_form($errors = '')
                 $html .= form_MD_select('max_rss_admin', $nbs, $values['max_rss_admin'], $GLOBALS['lang']['settings_nb_list']);
             $html .= '</div>';
 
-            $feed = explode('/', dirname($_SERVER['SCRIPT_NAME']));
-            $html .= '<div class="input">';
-                $html .= '<label>'.$GLOBALS['lang']['settings_label_crontab_rss'].'</label>';
-                // $html .= '<a class="btn btn-info btn-dense" onclick="prompt(\''.$GLOBALS['lang']['settings_alert_crontab_rss'].'\', \'0 *  *   *   *   wget --spider -qO- '.$GLOBALS['URL_ROOT'].$feed[count($feed) - 1].'/_rss.ajax.php?guid='.SITE_UID.'&refresh_all'.'\');return false;" href="#">Afficher ligne Cron</a>';
-                $html .= '<textarea class="text" readonly>0 *  *   *   *   wget --spider -qO- '.$GLOBALS['URL_ROOT'].$feed[count($feed) - 1].'/_rss.ajax.php?guid='.SITE_UID.'&refresh_all</textarea>';
-            $html .= '</div>';
-            $html .= '<div class="tips">';
-                $html .= 'Use Cron or other service to call this URL.';
-            $html .= '</div>';
-
             $html .= '<p class="txt-center">';
                 $html .= $GLOBALS['lang']['settings_rss_go_to_imp-export'];
                 $html .= '<a class="btn btn-blue btn-flat btn-dense" href="maintenance.php">'.$GLOBALS['lang']['label_import-export'].'</a>';
@@ -314,18 +304,38 @@ function settings_form($errors = '')
         $html .= hidden_input('max_rss_admin', 10);
     }
 
+    // cron
+    $html .= '<div role="group" class="block-white block_legend">';
+        $html .= '<legend>'.$GLOBALS['lang']['title_maintenance'].'</legend>';
+
+        $html .= '<div class="input">';
+            $html .= form_checkbox('auto_check_updates', $GLOBALS['auto_check_updates'], $GLOBALS['lang']['settings_check_update']);
+        $html .= '</div>';
+
+        $html .= '<div class="input">';
+            $html .= form_checkbox('auto_check_feeds', $GLOBALS['auto_check_feeds'], $GLOBALS['lang']['settings_check_feeds']);
+        $html .= '</div>';
+
+        $feed = explode('/', dirname($_SERVER['SCRIPT_NAME']));
+        $html .= '<div class="input">';
+            $html .= '<label>'.$GLOBALS['lang']['settings_label_crontab_rss'].'</label>';
+            // $html .= '<a class="btn btn-info btn-dense" onclick="prompt(\''.$GLOBALS['lang']['settings_alert_crontab_rss'].'\', \'0 *  *   *   *   wget --spider -qO- '.$GLOBALS['URL_ROOT'].$feed[count($feed) - 1].'/_rss.ajax.php?guid='.SITE_UID.'&refresh_all'.'\');return false;" href="#">Afficher ligne Cron</a>';
+            // $html .= '<textarea class="text" readonly>0 *  *   *   *   wget --spider -qO- '.$GLOBALS['URL_ROOT'].'_cron.php?guid='.SITE_UID.'</textarea>';
+            $html .= '<textarea class="text" readonly>'.$GLOBALS['URL_ROOT'].'_cron.php?guid='.SITE_UID.'</textarea>';
+        $html .= '</div>';
+        $html .= '<div class="tips">';
+            $html .= 'Use Cron or other service to call this URL. eg.<pre>0 *  *   *   *   wget --spider -qO- '.$GLOBALS['URL_ROOT'].'_cron.php?guid='.SITE_UID.'</pre>';
+        $html .= '</div>';
+    $html .= '</div>';
+
     // maintenance
     $html .= '<div role="group" class="block-white block_legend">';
         $html .= '<legend>'.$GLOBALS['lang']['title_maintenance'].'</legend>';
 
-            $html .= '<div class="input">';
-                $html .= form_checkbox('auto_check_updates', $GLOBALS['auto_check_updates'], $GLOBALS['lang']['settings_check_update']);
-            $html .= '</div>';
-
-            $html .= '<p class="txt-center">';
-                $html .= $GLOBALS['lang']['settings_go_to_maintenance'];
-                $html .= '<a class="btn btn-blue btn-flat btn-dense" href="maintenance.php">Maintenance</a>';
-            $html .= '</p>';
+        $html .= '<p class="txt-center">';
+            $html .= $GLOBALS['lang']['settings_go_to_maintenance'];
+            $html .= '<a class="btn btn-blue btn-flat btn-dense" href="maintenance.php">Maintenance</a>';
+        $html .= '</p>';
     $html .= '</div>';
 
 
@@ -349,6 +359,7 @@ function settings_form($errors = '')
 require_once BT_ROOT.'inc/settings.php';
 
 $errorsForm = array();
+$message = '';
 
 // proceed form
 if (filter_input(INPUT_POST, '_verif_envoi') !== null) {
@@ -357,7 +368,7 @@ if (filter_input(INPUT_POST, '_verif_envoi') !== null) {
 
     // remove some datas
     $to_remove = array(
-        'email', 'author', 'SITE_UID',
+        'email', 'author', 'SITE_UID', 'site_description',
         'DBMS', 'DB_CHARSET', 'MYSQL_LOGIN', 'MYSQL_PASS', 'MYSQL_DB', 'MYSQL_HOST', 'MYSQL_PORT',
         'TOKEN_TTL', 'BT_SETTINGS_VERSION',
     );
@@ -374,7 +385,14 @@ if (filter_input(INPUT_POST, '_verif_envoi') !== null) {
     $errors = count($posted['errors']);
     if ($errors === 0) {
         // to do show errors / success message
-        var_dump(settings_vhost_write($posted['values']));
+        if (settings_vhost_write($posted['values'])) {
+            $message = 'Save';
+        } else {
+            $message = 'Fail to save new settings';
+        }
+    } else {
+        $errorsForm = $posted['errors'];
+        $message = 'Errors with the form datas';
     }
 }
 

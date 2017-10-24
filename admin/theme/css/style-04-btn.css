@@ -200,6 +200,8 @@
     background: #db4437;
     transition: transform .2s cubic-bezier(.57,.57,.96,1.39);
     border: 0;
+    color: white;
+    font-size: 1.4em;
 }
 #fab::before {
     content: "\e903";

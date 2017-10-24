@@ -47,14 +47,13 @@ function get_safe_path($path)
  */
 function folder_rmdir_recursive($path)
 {
-    $error = 0;
-
     // secure and test the path
     // just trying to avoid to delete the world or cause a zombie apocalypse
     if (($path = get_safe_path($path)) === false) {
         return false;
     }
 
+    $error = 0;
     $dir = opendir($path);
     while (($file = readdir($dir)) !== false) {
         if (($file == '.') || ($file == '..')) {
@@ -64,10 +63,8 @@ function folder_rmdir_recursive($path)
             if (!folder_rmdir_recursive($path.$file.'/')) {
                 ++$error;
             }
-        } else {
-            if (!@unlink($path.$file)) {
-                ++$error;
-            }
+        } else if (!@unlink($path.$file)) {
+            ++$error;
         }
     }
     closedir($dir);
@@ -98,25 +95,15 @@ function folder_create($path, $htaccess = false, $recursive = true)
     $fail = 0;
     if (mkdir($path, 0755, $recursive)) {
         // "secure childs"
-        if ($recursive === true) {
-            if (!folder_secure_parents($path, $htaccess)) {
-                $fail = 1;
-            }
-        }
-
-        if (!file_htaccess_write($path)) {
+        if (!folder_secure_parents($path, $htaccess)) {
             $fail = 1;
         }
-        if (!file_htaccess_write($path)) {
-            $fail = 1;
-        }
-        return true;
     }
 
     // log error
-    log_error('FAIL to create folder');
+    log_error('FAIL to create folder '. str_replace(BT_ROOT, '', $path));
 
-    return false;
+    return (bool)($fail === 0);
 }
 
 /**
@@ -227,7 +214,7 @@ function file_htaccess_write($folder)
  */
 function file_cache_lv1_refresh()
 {
-    folder_create(DIR_VHOST_CACHE, 1);
+    folder_create(DIR_VHOST_CACHE, true);
     $arr_a = db_items_list("SELECT * FROM articles WHERE bt_statut=1 ORDER BY bt_date DESC LIMIT 0, 20", array(), 'articles');
     $arr_c = db_items_list("SELECT c.*, a.bt_title FROM commentaires AS c, articles AS a WHERE c.bt_statut=1 AND c.bt_article_id=a.bt_id ORDER BY c.bt_id DESC LIMIT 0, 20", array(), 'commentaires');
     $arr_l = db_items_list("SELECT * FROM links WHERE bt_statut=1 ORDER BY bt_id DESC LIMIT 0, 20", array(), 'links');

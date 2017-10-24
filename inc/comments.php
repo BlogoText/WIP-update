@@ -122,16 +122,16 @@ function comments_proceed_public($article_id)
     $posted = filter_input_array(
         INPUT_POST,
         array(
-                        'commentaire' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-                        'author' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-                        'email' => FILTER_VALIDATE_EMAIL,
-                        'webpage' => FILTER_VALIDATE_URL,
-                        'subscribe' => FILTER_VALIDATE_BOOLEAN, // FILTER_VALIDATE_INT
-                        'token' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-                        'captcha' => FILTER_VALIDATE_INT,
-                        'allowcuki' => FILTER_VALIDATE_INT,
-                        'subscribe' => FILTER_VALIDATE_INT,
-                    )
+                'commentaire' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+                'author' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+                'email' => FILTER_VALIDATE_EMAIL,
+                'webpage' => FILTER_VALIDATE_URL,
+                'subscribe' => FILTER_VALIDATE_BOOLEAN, // FILTER_VALIDATE_INT
+                'token' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+                'captcha' => FILTER_VALIDATE_INT,
+                'allowcuki' => FILTER_VALIDATE_INT,
+                'subscribe' => FILTER_VALIDATE_INT,
+            )
     );
 
     // add some additionnal check
@@ -275,40 +275,39 @@ function comments_form($article_id, $datas = array(), $errors = array())
  */
 function comments_form_check($comment, $mode)
 {
-    $erreurs = array();
-    if (!strlen(trim($comment['bt_author']))) {
-        $erreurs[] = $GLOBALS['lang']['err_comm_author'];
+    $errors = array();
+    if (!mb_strlen(trim($comment['bt_author']))) {
+        $errors[] = $GLOBALS['lang']['err_comm_author'];
     }
     if (!empty($comment['bt_email']) or $GLOBALS['comments_require_email'] == 1) { // if email is required, or is given, it must be valid
         if (!preg_match('#^[-\w!%+~\'*"\[\]{}.=]+@[\w.-]+\.[a-zA-Z]{2,6}$#i', trim($comment['bt_email']))) {
-            $erreurs[] = $GLOBALS['lang']['err_comm_email'] ;
+            $errors[] = $GLOBALS['lang']['err_comm_email'] ;
         }
     }
-    if (!strlen(trim($comment['bt_content'])) or $comment['bt_content'] == "<p></p>") { // comment may not be empty
-        $erreurs[] = $GLOBALS['lang']['err_comm_content'];
+    if (!mb_strlen(trim($comment['bt_content'])) or $comment['bt_content'] == "<p></p>") { // comment may not be empty
+        $errors[] = $GLOBALS['lang']['err_comm_content'];
     }
     if (!preg_match('/\d{14}/', $comment['bt_article_id'])) { // comment has to be on a valid article_id
-        $erreurs[] = $GLOBALS['lang']['err_comm_article_id'];
+        $errors[] = $GLOBALS['lang']['err_comm_article_id'];
     }
 
-    if (trim($comment['bt_webpage']) != "") { // given url has to be valid
+    if (trim($comment['bt_webpage']) != '') { // given url has to be valid
         if (!preg_match('#^(https?://[\S]+)[a-z]{2,6}[-\#_\w?%*:.;=+\(\)/&~$,]*$#', trim($comment['bt_webpage']))) {
-            $erreurs[] = $GLOBALS['lang']['err_comm_webpage'];
+            $errors[] = $GLOBALS['lang']['err_comm_webpage'];
         }
     }
     if ($mode != 'admin') { // if public : tests captcha as well
         $ua = (isset($_SERVER['HTTP_USER_AGENT'])) ? $_SERVER['HTTP_USER_AGENT'] : '';
         if ($_POST['_token'] != sha1($ua.$_POST['captcha'])) {
-            $erreurs[] = $GLOBALS['lang']['err_comm_captcha'];
+            $errors[] = $GLOBALS['lang']['err_comm_captcha'];
         }
     } else { // mode admin : test token
         if (TOKEN_CHECK !== true) {
-            $erreurs[] = $GLOBALS['lang']['err_wrong_token'];
+            $errors[] = $GLOBALS['lang']['err_wrong_token'];
         }
     }
-    return $erreurs;
+    return $errors;
 }
-
 
 // Called when a new comment is posted (public side or admin side) or on edit/activating/removing
 //  when adding, redirects with message after processing
@@ -396,7 +395,11 @@ function init_post_comment($id, $mode)
 
         // verif url.
         if (!empty($_POST['webpage'])) {
-            $url = protect((strpos($_POST['webpage'], 'http://') === 0 or strpos($_POST['webpage'], 'https://') === 0)? $_POST['webpage'] : 'http://'.$_POST['webpage']);
+            $url = protect(
+                        (
+                            strpos($_POST['webpage'], 'http://') === 0
+                         || strpos($_POST['webpage'], 'https://') === 0
+                        ) ? $_POST['webpage'] : 'http://'.$_POST['webpage']);
         } else {
             $url = $_POST['webpage'];
         }
@@ -442,10 +445,10 @@ function comments_aside_preview()
         foreach ($tableau as $i => $comment) {
             $comment['content_abbr'] = strip_tags($comment['bt_content']);
             // limits length of comment abbreviation and name
-            if (strlen($comment['content_abbr']) >= 60) {
+            if (mb_strlen($comment['content_abbr']) >= 60) {
                 $comment['content_abbr'] = mb_substr($comment['content_abbr'], 0, 59).'…';
             }
-            if (strlen($comment['bt_author']) >= 30) {
+            if (mb_strlen($comment['bt_author']) >= 30) {
                 $comment['bt_author'] = mb_substr($comment['bt_author'], 0, 29).'…';
             }
             $listeLastComments .= '<li title="'.date_formate($comment['bt_id']).'"><strong>'.$comment['bt_author'].' : </strong><a href="'.$comment['bt_link'].'">'.$comment['content_abbr'].'</a>'.'</li>'."\n";
@@ -491,20 +494,16 @@ function comments_unsubscribe($email_b64, $article_id, $all)
 {
     $email = base64_decode($email_b64);
     try {
+        $query = '
+            UPDATE commentaires
+               SET bt_subscribe = 0
+             WHERE bt_email = ?';
         if ($all == 1) {
             // update all comments having $email
-            $query = '
-                UPDATE commentaires
-                   SET bt_subscribe = 0
-                 WHERE bt_email = ?';
             $array = array($email);
         } else {
             // update all comments having $email on $article
-            $query = '
-                UPDATE commentaires
-                   SET bt_subscribe = 0
-                 WHERE bt_email = ?
-                       AND bt_article_id = ?';
+            $query = ' AND bt_article_id = ?';
             $array = array($email, $article_id);
         }
         $req = $GLOBALS['db_handle']->prepare($query);
@@ -515,7 +514,6 @@ function comments_unsubscribe($email_b64, $article_id, $all)
     }
     return false;
 }
-
 
 /**
  * Having a comment ID, sends emails to the other comments that are subscriben
@@ -571,27 +569,27 @@ function comment_send_emails($id_comment)
     // stolen from https://kevinjmcmahon.net/articles/22/html-and-plain-text-multipart-email-/
     //create a boundary for the email.
     $boundary = uniqid('blogotext');
-    $subject = $GLOBALS['lang']['mail_subject'].$article_title.'" - '.$GLOBALS['nom_du_site'];
+    $subject = $GLOBALS['lang']['mail_subject'].$article_title.'" - '.$GLOBALS['site_name'];
 
     // send emails
     foreach ($to_send_mail as $mail) {
         $headers = "MIME-Version: 1.0\r\n";
         $headers .= 'From: no.reply_'.$GLOBALS['email']."\r\n".'X-Mailer: BlogoText - PHP/'.phpversion();
         $headers .= 'To: '.$mail."\r\n";
-        $headers .= 'Content-Type: multipart/alternative;boundary=' . $boundary . "\r\n";
+        $headers .= 'Content-Type: multipart/alternative;boundary='. $boundary ."\r\n";
 
         $unsublink = get_blogpath($article_id, '').'&amp;unsub=1&amp;mail='.base64_encode($mail).'&amp;article='.$article_id;
 
         $message = 'This is a MIME encoded message.';
-        $message .= "\r\n\r\n--" . $boundary . "\r\n";
+        $message .= "\r\n\r\n--". $boundary ."\r\n";
         $message .= 'Content-type: text/plain;charset=utf-8'."\r\n\r\n";
 
         // Plain text message
         $message .= $subject."\r\n";
-        $message .= str_repeat('=', strlen($subject));
+        $message .= str_repeat('=', mb_strlen($subject));
         $message .= "\r\n\n";
         $message .= $GLOBALS['lang']['mail_message1'].$comm_author.$GLOBALS['lang']['mail_message2'];
-        $message .= $article_title.$GLOBALS['lang']['mail_message3'].$GLOBALS['nom_du_site'];
+        $message .= $article_title.$GLOBALS['lang']['mail_message3'].$GLOBALS['site_name'];
         $message .= "\r\n";
         $message .= $GLOBALS['lang']['mail_see'].$GLOBALS['lang']['mail_link'].': '.get_blogpath($article_id, '').'#'.article_anchor($id_comment);
         $message .= "\r\n\n---\r\n\n";
@@ -603,20 +601,20 @@ function comment_send_emails($id_comment)
         $message .= "\r\n";
         $message .= $GLOBALS['lang']['mail_regards'];
 
-        $message .= "\r\n\r\n--" . $boundary . "\r\n";
+        $message .= "\r\n\r\n--" .$boundary ."\r\n";
         $message .= "Content-type: text/html;charset=utf-8\r\n\r\n";
 
         // Html message
         $message .= '<html>';
         $message .= '<head><title>'.$subject.'</title></head>';
-        $message .= '<body><p>'.$GLOBALS['lang']['mail_message1'].'<b>'.$comm_author.'</b>'.$GLOBALS['lang']['mail_message2'].'<b>'.$article_title.'</b>'.$GLOBALS['lang']['mail_message3'].$GLOBALS['nom_du_site'].'.<br/>';
+        $message .= '<body><p>'.$GLOBALS['lang']['mail_message1'].'<b>'.$comm_author.'</b>'.$GLOBALS['lang']['mail_message2'].'<b>'.$article_title.'</b>'.$GLOBALS['lang']['mail_message3'].$GLOBALS['site_name'].'.<br/>';
         $message .= $GLOBALS['lang']['mail_see'].'<a href="'.get_blogpath($article_id, '').'#'.article_anchor($id_comment).'">'.$GLOBALS['lang']['mail_link'].'</a>.</p>';
         $message .= '<p>'.$GLOBALS['lang']['mail_unsub'].'<br/><a href="'.$unsublink.'">'.$unsublink.'</a>.</p>';
         $message .= '<p>'.$GLOBALS['lang']['mail_unsuball'].'<br/> <a href="'.$unsublink.'&amp;all=1">'.$unsublink.'&amp;all=1</a>.</p>';
         $message .= '<p>'.$GLOBALS['lang']['mail_link'].'</p><p>'.$GLOBALS['lang']['mail_regards'].'</p></body>';
         $message .= '</html>';
 
-        $message .= "\r\n\r\n--" . $boundary . "--";
+        $message .= "\r\n\r\n--". $boundary .'--';
 
         mail($mail, $subject, $message, $headers);
     }

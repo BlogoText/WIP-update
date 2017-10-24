@@ -75,7 +75,7 @@ if ($query) {
             $sqlWhere .= ' AND ';
         }
         $sqlWhereStatus = 'bt_statut = 0';
-        $query = substr($query, 0, strlen($query) - 8);
+        $query = substr($query, 0, mb_strlen($query) - 8);
     }
     // Search "in:unread"
     if (substr($query, -10) == ' in:unread') {
@@ -83,7 +83,7 @@ if ($query) {
             $sqlWhere .= ' AND ';
         }
         $sqlWhereStatus = 'bt_statut = 1';
-        $query = substr($query, 0, strlen($query) - 10);
+        $query = substr($query, 0, mb_strlen($query) - 10);
     }
     $criterias = search_engine_parse_query($query);
     if ($sqlWhere && $criterias) {

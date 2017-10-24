@@ -422,46 +422,45 @@ select[multiple] option:checked::after {
 .input:-webkit-full-screen {
     width: 100vw !important;
     max-width: 960px;
-    margin: 0 auto;
     height: 100vh !important;
+    margin: 0 auto;
 }
 .input:-moz-full-screen {
     width: 100vw !important;
     max-width: 960px;
-    margin: 0 auto;
     height: 100vh !important;
+    margin: 0 auto;
 }
 .input:-ms-full-screen {
     width: 100vw !important;
     max-width: 960px;
-    margin: 0 auto;
     height: 100vh !important;
+    margin: 0 auto;
 }
 .input:fullscreen {
     width: 100vw !important;
     max-width: 960px;
-    margin: 0 auto;
     height: 100vh !important;
-    background:yellow;
+    margin: 0 auto;
 }
 .input:-webkit-full-screen textarea {
     width: 100%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 110px);
 }
 .input:-moz-full-screen textarea {
     width: 100%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 110px);
 }
 .input:-ms-full-screen textarea {
     width: 100%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 110px);
 }
 .input:fullscreen textarea {
     width: 100%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 110px);
 }
 .input:fullscreen textarea {
     width: 100%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 110px);
 }
 

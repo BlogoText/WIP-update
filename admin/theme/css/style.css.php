@@ -33,17 +33,21 @@ if (extension_loaded('zlib') and ob_get_length() > 0) {
 
 header('Content-type: text/css; charset: UTF-8');
 
+
 /**
- * put cache to /var/000_common/cache/
+ * cache in /var/000_common/cache/
  */
-$cache_path = '../../../var/000_common/cache/';
-$cache_file = $cache_path.'admin-cached-'.$version.'.css.php';
-// check if cache exists
-if (file_exists($cache_file)) {
-    $cached = file_get_contents($cache_file);
-    if ($cached !== false && strpos($cached, '<?php die(); ?>') !== false) {
-        echo substr($cached, 15);
-        die;
+$cache = (bool)(strpos($version, '-dev') === false); // use cache ?
+if ($cache) {
+    $cache_path = '../../../var/000_common/cache/';
+    $cache_file = $cache_path.'admin-'.$version.'.css.php';
+    // check if cache exists
+    if (file_exists($cache_file)) {
+        $cached = file_get_contents($cache_file);
+        if ($cached !== false && strpos($cached, '<?php die(); ?>') !== false) {
+            echo substr($cached, 15);
+            die;
+        }
     }
 }
 
@@ -149,14 +153,16 @@ $content = str_replace('  !important', ' !important', $content);
 // last cleanup
 $content = str_replace(array("\r", "\n"), '', $content);
 
-// put in cache
-if (is_dir($cache_path)) {
-    file_put_contents(
-        $cache_file,
-        '<?php die(); ?>'
-                .'@charset "utf-8";'."\n"
-                .$content
-    );
+if ($cache) {
+    // put in cache
+    if (is_dir($cache_path)) {
+        file_put_contents(
+            $cache_file,
+            '<?php die(); ?>'
+                    .'@charset "utf-8";'."\n"
+                    .$content
+        );
+    }
 }
 
 echo '@charset "utf-8";'."\n";

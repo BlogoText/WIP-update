@@ -29,7 +29,6 @@ DEFINE('EXPIRE_PNG', 60 * 60 * 24 * 365);
  */
 function favatar()
 {
-
     $what = (string)filter_input(INPUT_GET, 'w');
     $query = (string)filter_input(INPUT_GET, 'q');
 

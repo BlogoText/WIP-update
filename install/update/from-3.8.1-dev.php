@@ -26,10 +26,13 @@ $update_proceed = function ()
         'success' => false,
         'messages' => array(),
         'errors' => array(),
-        'version' => '3.8.1-dev',
+        'version' => '3.8.2-dev',
     );
 
-    // nothing to do ...
+    // do you stuff...
+    
+
+    // if everything is fine...
     $return['success'] = true;
 
     return $return;

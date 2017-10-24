@@ -14,6 +14,9 @@
 
 
 
+/**
+ * to do ... rewrite this shit ...
+ */
 function lang_install_get()
 {
     global $install_lang;
@@ -31,6 +34,9 @@ function lang_install_get()
     $GLOBALS['lang'] = array_merge($GLOBALS['lang'], $install_lang);
 }
 
+/**
+ * to do ... rewrite this shit ...
+ */
 function lang_install_set()
 {
     global $install_lang;
@@ -42,7 +48,6 @@ function lang_install_set()
     // merge languages
     $GLOBALS['lang'] = array_merge($GLOBALS['lang'], $install_lang);
 }
-
 
 /**
  * find admin folder
@@ -59,14 +64,13 @@ function folder_admin_get()
         return false;
     }
     if (!isset($found['0'])) {
-        if (is_dir(BT_ROOT.'admin/')) {
+        if (is_dir($bt_root.'admin/')) {
             return array('admin');
         }
         die('no admin folder found');
     }
     return str_replace(array($bt_root, '/.adminfold'), '', $found['0']);
 }
-
 
 /**
  * light template system for installation
@@ -209,8 +213,6 @@ function db_test($DBMS, $host, $port, $db_name, $login, $pass)
         }
     }
 
-    // var_dump($db_handler);
-
     /* Now, make sure for utf8mb4 support */
 
     // don't know what some char means, hoping it's not insulting oO
@@ -238,7 +240,6 @@ function db_test($DBMS, $host, $port, $db_name, $login, $pass)
         $fail = 0;
         foreach ($db_req as $req_type => $req) {
             if ($fail !== 0) {
-                var_dump(__line__);
                 break;
             }
 
@@ -293,7 +294,6 @@ function db_test($DBMS, $host, $port, $db_name, $login, $pass)
     // shutdown the db connexion
     $db_handler = null;
 
-    // var_dump($support);
     if (empty($support['DB_CHAR4B']) && !is_bool($support['DB_CHAR4B'])) {
         return 'Fail on charset tests, please make sure your database is (really) utf8 compliant';
     }
@@ -321,7 +321,6 @@ function db_create()
     $if_not_exists = (DBMS == 'sqlite') ? 'IF NOT EXISTS' : '';
     // $if_not_exists = 'IF NOT EXISTS';
     // set charset
-    // $charset = (DBMS == 'mysql') ? 'DEFAULT CHARSET=utf8' : '';
     $charset = (DBMS == 'mysql') ? 'DEFAULT CHARSET='. DB_CHARSET : '';
 
     // links
@@ -394,7 +393,6 @@ function db_create()
     // try to connect to db
     $db_handle = db_connect();
     if (!is_object($db_handle)) {
-        // var_dump(__line__);
         return $db_handle;
     }
 
@@ -403,7 +401,6 @@ function db_create()
     foreach ($db_request as $id => $request) {
         try {
             $exec = $db_handle->exec($request);
-            // var_dump($exec);
         } catch (Exception $e) {
             var_dump($e->getMessage());
             ++$error;
@@ -411,4 +408,186 @@ function db_create()
     }
 
     return ($error === 0) ? true : 'Fail on database creation';
+}
+
+/**
+ * handler for db_connect()
+ * this function must be updated to use db_connect()
+ */
+function update_db_connect($db_settings)
+{
+    $default = array(
+                    'type' => '',
+                    'file' => '',
+                    'host' => '',
+                    'port' => '',
+                    'login' => '',
+                    'password' => '',
+                    'name' => '',
+                );
+
+    $settings = array_merge($default, $db_settings);
+
+    define('DBMS', $settings['type']);
+    define('FILE_VHOST_DB', $settings['file']);
+    define('MYSQL_HOST', $settings['host']);
+    define('MYSQL_DB', $settings['name']);
+    define('MYSQL_PORT', $settings['port']);
+    define('MYSQL_LOGIN', $settings['login']);
+    define('MYSQL_PASS', $settings['password']);
+
+    return db_connect();
+}
+
+/**
+ * find BT version before this update
+ * can be used to detect if BT is already installed
+ *
+ * return mixed,
+ *            - string, BT installed version
+ *            - false, BT not installed
+ */
+function update_get_installed_version()
+{
+    // 3.8.X and >
+    $version = file_get_version();
+    if ($version != false) {
+        return $version;
+    }
+
+    // detect < 3.7
+    if (file_exists('../config/prefs.php')) {
+        return '3.4.7';
+    }
+    // 3.7.X
+    if (file_exists('../config/settings.php')) {
+        return '3.7';
+    }
+    // can't keep this...
+    // 3.8.X and >
+    if (function_exists('settings_vhost_get')) {
+        $settings = settings_vhost_get(false);
+        if ($settings !== false && isset($settings['BT_SETTINGS_VERSION'])) {
+            return $settings['BT_SETTINGS_VERSION'];
+        }
+    }
+
+    return false;
+}
+
+/**
+ * the update process
+ *
+ * return bool
+ */
+function update_proceed()
+{
+    $have_update = true;
+    $reports = array();
+    $i = 0;
+    $errors = array();
+
+    // clean cache
+    if (!cache_clean_all()) {
+        // to do : change to error message (and continue ?)
+        die('can\'t to clean cache');
+    }
+
+    while ($have_update) {
+        $version = update_get_installed_version();
+        $update_proceed = null;
+        if (!$version) {
+            $have_update = false;
+        }
+        $update_file = BT_ROOT.'install/update/from-'.$version.'.php';
+        if (file_exists($update_file)) {
+            require_once($update_file);
+            if ($update_proceed !== null) {
+                $reports[$version] = $update_proceed();
+                if ($reports[$version]['success'] === true) {
+                    if (!file_put_version($reports[$version]['version'])) {
+                        $errors[] = 'Can\'t write version file';
+                    }
+                } else {
+                    $errors[] = 'Fail to upgrade';
+                }
+            }
+        } else {
+            $have_update = false;
+        }
+
+        ++$i;
+        // a limit, useless ?
+        if ($i == 20) {
+            var_dump($reports);
+            return false;
+        }
+    }
+
+    if (count($errors) === 0) {
+        // get the current used admin folder
+        $used_folder = folder_admin_get();
+        // remove folder
+        if ($used_folder != 'admin') {
+            if (!folder_rmdir_recursive($used_folder)
+             || !@rename($cur_folder, $new_folder)
+             || !(file_put_contents($new_folder.'.adminfold', '', LOCK_EX) === false)
+            ) {
+                
+            }
+        }
+    }
+
+    return $reports;
+}
+
+/**
+ * VHOST READY
+ * to do : move to somewhere else
+ */
+function cache_clean_all()
+{
+    $error = 0;
+    // clean vhost cache from 3.8.0
+    foreach (glob(BT_ROOT."var/*/cache/", GLOB_ONLYDIR) as $path){
+        if (!folder_rmdir_recursive($path)) {
+            ++$error;
+        }
+    }
+
+    return (bool)($error === 0);
+}
+
+/**
+ * save current/installed/updated version of BT in a file
+ *
+ * @return false or string, false or the version
+ */
+function file_get_version()
+{
+    $file = BT_ROOT.'var/000_common/version.php';
+    if (!file_exists($file)) {
+        return false;
+    }
+    $content = file_get_contents($file);
+    if (!$content) {
+        return false;
+    }
+    $version = substr($content, 16);
+    if (!preg_match('/^([0-9]+\.[0-9]+\.[0-9]+)(\-dev)?$/', $version)) {
+        return false;
+    }
+    return $version;
+}
+
+/**
+ * store the installed/updated version
+ *
+ * @params $version string, the semver version
+ * @return bool
+ */
+function file_put_version($version)
+{
+    $file = BT_ROOT.'var/000_common/version.php';
+    return (file_put_contents($file, '<?php die(); /* '.$version, LOCK_EX) !== false);
 }

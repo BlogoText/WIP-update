@@ -12,7 +12,6 @@
  * http://opensource.org/licenses/MIT
  */
 
-// dependancies
 require_once BT_ROOT.'inc/http.php';
 
 /**
@@ -60,8 +59,8 @@ function update_core_get_releases_infos($cached = false)
             )
         );
         $context = stream_context_create($opts);
-        // $content = file_get_contents('https://api.github.com/repos/BlogoText/WIP-update/releases', false, $context);
-        $content = file_get_contents('https://api.github.com/repos/BlogoText/blogotext/releases', false, $context);
+        $content = @file_get_contents('https://api.github.com/repos/BlogoText/WIP-update/releases', false, $context);
+        // $content = file_get_contents('https://api.github.com/repos/BlogoText/blogotext/releases', false, $context);
         if (!$content) {
             return false;
         }
@@ -104,13 +103,16 @@ function update_get_last_release_infos($cached = true)
     return array_pop($releases);
 }
 
+/**
+ *
+ */
 function update_is_available($cached = true)
 {
     $release = update_get_last_release_infos($cached);
     if (!$release) {
         return null;
     }
-    return (version_compare($release['tag_name'], BLOGOTEXT_VERSION) >= 0);
+    return (version_compare($release['tag_name'], BLOGOTEXT_VERSION) > 0) ? $release['tag_name'] : false;
 }
 
 

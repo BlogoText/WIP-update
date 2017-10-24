@@ -36,14 +36,17 @@ header('Content-type: application/javascript; charset: UTF-8');
 /**
  * put cache to /var/000_common/cache/
  */
-$cache_path = '../../../var/000_common/cache/';
-$cache_file = $cache_path.'admin-cached-'.$version.'.js.php';
-// check if cache exists
-if (file_exists($cache_file)) {
-    $cached = file_get_contents($cache_file);
-    if ($cached !== false && strpos($cached, '<?php die(); ?>') !== false) {
-        echo substr($cached, 15);
-        die;
+$cache = (bool)(strpos($version, '-dev') === false); // use cache ?
+if ($cache) {
+    $cache_path = '../../../var/000_common/cache/';
+    $cache_file = $cache_path.'admin-cached-'.$version.'.js.php';
+    // check if cache exists
+    if (file_exists($cache_file)) {
+        $cached = file_get_contents($cache_file);
+        if ($cached !== false && strpos($cached, '<?php die(); ?>') !== false) {
+            echo substr($cached, 15);
+            die;
+        }
     }
 }
 
@@ -143,13 +146,15 @@ foreach ($search_replace as $s => $r) {
 }
 
 // put in cache
-if (is_dir($cache_path)) {
-    file_put_contents(
-        $cache_file,
-        '<?php die(); ?>'
-                '"use strict";'."\n"
-                .$content
-    );
+if ($cache) {
+    if (is_dir($cache_path)) {
+        file_put_contents(
+            $cache_file,
+            '<?php die(); ?>'
+                    .'"use strict";'."\n"
+                    .$content
+        );
+    }
 }
 
 echo $content;

@@ -387,7 +387,10 @@ function respondCanvas()
 
     for (var i = 0, len = containers.length; i < len; i++) {
         var canvas = containers[i].querySelector("canvas");
-        canvas.width = parseInt(containers[i].querySelector(".graphique").getBoundingClientRect().width);
+        canvas.width = parseInt(containers[i].offsetWidth);
+        // console.log(parseInt(containers[i].offsetWidth));
+        // console.log(parseInt(containers[i].clientWidth));
+        // console.log(parseInt(containers[i].getBoundingClientRect().width));
         draw(containers[i], canvas);
     }
 }

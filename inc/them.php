@@ -188,6 +188,9 @@ function conversions_theme_comment($text, $comment)
  */
 function conversions_theme_article($text, $article)
 {
+    if (!function_exists('comments_form')) {
+        require_once BT_ROOT.'inc/comments.php';
+    }
     // $text = str_replace($GLOBALS['tpl_tags']['form_comment'], $GLOBALS['form_comment'], $text);
     $text = str_replace($GLOBALS['tpl_tags']['form_comment'], comments_form($article['bt_id'], array(), array()), $text);
     $text = str_replace($GLOBALS['tpl_tags']['rss_comments'], 'rss.php?id='.$article['bt_id'], $text);
@@ -200,11 +203,11 @@ function conversions_theme_article($text, $article)
     $text = str_replace($GLOBALS['tpl_tags']['article_date_iso'], date_formate_iso($article['bt_date']), $text);
     $text = str_replace($GLOBALS['tpl_tags']['article_hour'], time_formate($article['bt_date']), $text);
     // comments closed (globally or only for this article) and no comments => say « comments closed »
-    if (($article['bt_allow_comments'] == 0 or $GLOBALS['comments_allowed'] == 1 ) and $article['bt_nb_comments'] == 0) {
+    if (($article['bt_allow_comments'] == 0 or $GLOBALS['comments_allowed'] == 1) and $article['bt_nb_comments'] == 0) {
         $text = str_replace($GLOBALS['tpl_tags']['nb_comments'], $GLOBALS['lang']['note_comment_closed'], $text);
     }
     // comments open OR ( comments closed AND comments exists ) => say « nb comments ».
-    if (!($article['bt_allow_comments'] == 0 or $GLOBALS['comments_allowed'] == 1 ) or $article['bt_nb_comments'] != 0) {
+    if (!($article['bt_allow_comments'] == 0 or $GLOBALS['comments_allowed'] == 1) or $article['bt_nb_comments'] != 0) {
         $text = str_replace($GLOBALS['tpl_tags']['nb_comments'], nombre_objets($article['bt_nb_comments'], 'comment'), $text);
     }
     $text = str_replace($GLOBALS['tpl_tags']['article_lien'], $article['bt_link'], $text);

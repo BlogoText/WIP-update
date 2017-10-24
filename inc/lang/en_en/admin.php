@@ -406,6 +406,7 @@ $GLOBALS['lang'] = array(
 'settings_linx_dl_auto' => 'Automaticaly import shared files?',
 'settings_ask_everytime' => 'Ask each time',
 'settings_check_update' => 'Check updates automatically',
+'settings_check_feeds' => 'Update rss feed aggregator',
 'maintenance_optim' => 'Cleanup database',
 // Notes
 'note_no_article' => 'No articles',

@@ -212,13 +212,23 @@ if ($query) {
         $order_list[] = '<li data-id="home-update" draggable="true" >BT update</li>';
         $t_order = '';
     }
-    if (update_is_available()) {
+    $upd_status = update_is_available();
+    if (is_string($upd_status)) {
         echo '<div id="home-update" class="home-item grabGrid-item-size-1" style="order:'.$t_order.';">';
         echo '  <div class="home-item-number">';
-        echo '    <div class="home-desc">BlogoText version</div>';
-        echo '    <div class="home-number">3.8.0</div>';
+        echo '    <div class="home-desc">BlogoText</div>';
+        echo '    <div class="home-number">'.$upd_status.'</div>';
         echo '    <div class="home-desc">disponible !</div>';
         echo '    <div class="home-action"><a href="update.php" class="btn btn-dense btn-info">Mettre à jour</a></div>';
+        echo '  </div>';
+        echo '</div>';
+    } else if ($upd_status === null) {
+        echo '<div id="home-update" class="home-item grabGrid-item-size-1" style="order:'.$t_order.';">';
+        echo '  <div class="home-item-number">';
+        echo '    <div class="home-desc">Votre version de BlogoText</div>';
+        echo '    <div class="home-number">'.BLOGOTEXT_VERSION.'</div>';
+        echo '    <div class="error">Impossible de contacter le service de mise à jour</div>';
+        echo '    <div class="home-action"><a href="" class="btn btn-dense btn-info">Voir les mise à jour</a></div>';
         echo '  </div>';
         echo '</div>';
     } else {
@@ -285,7 +295,7 @@ if ($query) {
         $tabs_content[] = '<div id="tab-links" class="tabs-content block-white">'. display_graph($links, $GLOBALS['lang']['label_links'], 'links') .'</div>';
     }
 
-    if (count($tabs_head) > 0) {
+    // if (count($tabs_head) > 0) {
         if (isset($order['home-graph'])) {
             $order_list[$order['home-graph']] = '<li data-id="home-graph" draggable="true">Graphs</li>';
             $t_order = $order['home-graph'];
@@ -293,10 +303,12 @@ if ($query) {
             $order_list[] = '<li data-id="home-graph" draggable="true">Graphs</li>';
             $t_order = '';
         }
-    }
+    // }
 
     if (!max($numberOfPosts, $numberOfComments, $numberOfLinks)) {
-        echo info($GLOBALS['lang']['note_no_article']);
+        echo '<div id="home-graph" class="grabGrid-item-size-4 block-white txt-center" style="order:'.$t_order.';">';
+            echo info($GLOBALS['lang']['note_no_article']);
+        echo '</div>';
     } else {
         echo '
             <div id="home-graph" class="grabGrid-item-size-4" style="order:'.$t_order.';">
@@ -340,8 +352,8 @@ if ($query) {
 ?>
 <script>
     var containers = document.querySelectorAll(".graph-container"),
-        month_min_width = 40, // in px
-        tabs = document.querySelectorAll(".tabs");
+        tabs = document.querySelectorAll(".tabs"),
+        month_min_width = 40; // in px
     homeBoot();
 </script>
 <?php

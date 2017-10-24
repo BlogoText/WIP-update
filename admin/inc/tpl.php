@@ -43,7 +43,7 @@ function tpl_items_counter($item_name, $current, $max)
 function tpl_show_topnav($title)
 {
     $tab = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_BASENAME);
-    if (strlen($title) == 0) {
+    if (mb_strlen($title) == 0) {
         $title = BLOGOTEXT_NAME;
     }
     $html = '<div id="nav">';
@@ -85,19 +85,7 @@ function tpl_show_msg()
     $msg = (string)filter_input(INPUT_GET, 'msg');
     $html = '';
 
-    /*
-    function BigToast_insert_error()
-    {
-        var notif = new Notification();
-        notif
-            .setText('This is an error...')
-            .setClass('error')
-            .addCloseButton('Ok')
-            .insertAsBigToast();
-    }
-    */
-
-    // RemRem : I suppose this is a "good/info" message
+    // From RemRem : I suppose this is a "good/info" message
     if ($msg
      && array_key_exists(htmlspecialchars($msg), $GLOBALS['lang'])
     ) {

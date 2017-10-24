@@ -32,6 +32,7 @@ define('BT_RUN_INSTALL', true);
 // load basic
 require_once 'functions.php';
 
+// check there is an admin fold
 $admin_fold = folder_admin_get();
 if ($admin_fold === false) {
     die('No admin fold found');
@@ -61,19 +62,21 @@ if (session_status() == PHP_SESSION_NONE) {
 /**
  * on first run of the installer, check if this is an update
  */
-if (!isset($_SESSION['install'])) {
-    $_SESSION['install'] = true;
+// if (!isset($_SESSION['install'])) {
+    // $_SESSION['install'] = true;
 
     require_once BT_ROOT.'inc/sqli.php';
-    require_once 'functions-update.php';
 
     // run update
     if (update_get_installed_version() !== false) {
-        var_dump(update_proceed());
+        $update_proceed = update_proceed();
+        var_dump($update_proceed);
         exit();
+    } else {
+        $_SESSION['install'] = true;
     }
-}
-
+// }
+exit();
 
 
 
@@ -95,7 +98,23 @@ if (!$is_file_user) {
     require 'install-user.php';
 }
 
+
 // cleanup and final page !
-require 'install-final.php';
+$template_final = install_get_template('tpl-install-final', 'FR_fr');
+
+// CleanUp : remove sqlite db file
+// if (DBMS == 'sqlite') {
+    // $db_file = './db_test_charset.sqlite';
+    // if (isset($db_file) && is_file($db_file)) {
+        // @unlink($db_file);
+    // }
+// }
+
+// delete install dir
+if (!folder_rmdir_recursive(BT_ROOT.'install/')) {
+    $template_final = str_replace('{final-error}', $GLOBALS['lang']['install_fail_to_delete_install_dir'], $template_final);
+}
+
+echo $template_final;
 
 exit();

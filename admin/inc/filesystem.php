@@ -151,7 +151,7 @@ function file_handler_add($file, $method, $datas)
     }
 
     $folder = ($file['bt_type'] == 'image') ? DIR_IMAGES.$file['bt_path'].'/' : DIR_DOCUMENTS;
-    if (!folder_create($folder, 0)) {
+    if (!folder_create($folder, false)) {
         die($GLOBALS['lang']['err_file_write']);
     }
 
@@ -207,7 +207,7 @@ function file_handler_upd($file, $current_filename)
     // if file renamed, need to move the file
     if ($file['bt_filename'] != $current_filename) {
         $folder = ($file['bt_type'] == 'image') ? DIR_IMAGES.$file['bt_path'].'/' : DIR_DOCUMENTS;
-        if (!folder_create($folder, 0)) {
+        if (!folder_create($folder, false)) {
             die($GLOBALS['lang']['err_file_write']);
         }
         // prevent file overwrite
@@ -305,7 +305,7 @@ function bdd_fichier($fichier, $quoi, $comment, $sup_var)
         $dossier = DIR_DOCUMENTS;
         $rand_dir = '';
     }
-    if (!folder_create($dossier, 0)) {
+    if (!folder_create($dossier, false)) {
         die($GLOBALS['lang']['err_file_write']);
     }
     if ($quoi == 'supprimer-existant') {

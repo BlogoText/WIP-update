@@ -38,7 +38,7 @@ if (!is_array($version_infos)) {
         echo '<h3>Current version is ', BLOGOTEXT_VERSION ,', ',update_count_release_diff(),' version(s) behind the latest.</h3>';
         echo '<p>BT ',$version_infos['tag_name'],' was created the ',$version_infos['created_at'],' and published the ',$version_infos['published_at'],'</p>';
         echo '<p>Release page : <a href="',$version_infos['html_url'],'">Github / BlogoText / ',$version_infos['target_commitish'],' / releases / ',$version_infos['tag_name'],'</a></p>';
-    if (update_is_available()) {
+    if (is_string(update_is_available())) {
         echo '<p class="btn-container"><input type="button" class="btn" value="Apply" /></p>';
     }
     echo '</div>';

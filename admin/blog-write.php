@@ -28,7 +28,7 @@ function extact_words($text)
     $words = explode(' ', $text);
     foreach ($words as $i => $word) {
         // remove short words & words with numbers
-        if (strlen($word) <= 4 or preg_match('#\d#', $word)) {
+        if (mb_strlen($word) <= 4 or preg_match('#\d#', $word)) {
             unset($words[$i]);
         } elseif (preg_match('#\?#', utf8_decode(preg_replace('#&(.)(acute|grave|circ|uml|cedil|tilde|ring|slash|caron);#', '$1', $word)))) {
             unset($words[$i]);
@@ -382,21 +382,21 @@ function display_form_post($post, $errors)
  */
 function show_preview($article)
 {
-    if (isset($article)) {
-        $html = '<h2>'.$article['bt_title'].'</h2>';
-        if (empty($article['bt_abstract'])) {
-            $article['bt_abstract'] = mb_substr(strip_tags($article['bt_content']), 0, 249).'…';
-        }
-        $html .= '<hr />';
-        $html .= '<div><strong>'.$article['bt_abstract'].'</strong></div>';
-        $html .= '<hr />';
-        $html .= '<div>';
-        // if relative URI in path, make absolute paths (since /admin/ panel is 1 lv deeper) for href/src.
-        $html .= preg_replace('#(src|href)=\"(?!(/|[a-z]+://))#i', '$1="../', $article['bt_content']);
-        $html .= '</div>';
-        return '<div class="main-white" id="apercu">'.$html.'</div>';
+    if (!isset($article)) {
+        return '';
     }
-    return '';
+
+    if (empty($article['bt_abstract'])) {
+        $article['bt_abstract'] = trim(mb_substr(strip_tags($article['bt_content']), 0, 249)).'…';
+    }
+    // if relative URI in path, make absolute paths (since /admin/ panel is 1 lv deeper) for href/src.
+    $article['bt_content'] .= preg_replace('#(src|href)=\"(?!(/|[a-z]+://))#i', '$1="../', $article['bt_content']);
+
+    $html = '<h2>'.$article['bt_title'].'</h2>';
+    $html .= '<div>'.$article['bt_abstract'].'</div>';
+    $html .= '<div>';
+    $html .= '</div>';
+    return '<div class="main-white" id="preview">'.$html.'</div>';
 }
 
 /**
@@ -411,10 +411,10 @@ function validate_form_post($post)
     if ($vars['supprimer'] && TOKEN_CHECK !== true) {
         $errors[] = $GLOBALS['lang']['err_wrong_token'];
     }
-    if (!strlen(trim($post['bt_title']))) {
+    if (!mb_strlen(trim($post['bt_title']))) {
         $errors[] = $GLOBALS['lang']['err_title'];
     }
-    if (!strlen(trim($post['bt_content']))) {
+    if (!mb_strlen(trim($post['bt_content']))) {
         $errors[] = $GLOBALS['lang']['err_content'];
     }
     if (!preg_match('/\d{4}/', $date['year'])) {

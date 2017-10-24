@@ -40,11 +40,11 @@ function content_infos_get()
 function content_infos_init()
 {
     $GLOBALS['content_infos'] = array(
-        'type' => '',       // (string) content type : link, blog ...
-        'list' => false,    // (bool) list of multiple content ?
-        'id' => '',         // (mixed) (int) or (array) id, or ids of content
-        'format' => '',     // (string) final exit format : html, xml, json
-        'http' => '',       // (int) final http code : 200, 404
+        'type' => '',     // (string) content type : link, blog ...
+        'list' => false,  // (bool) list of multiple content ?
+        'id' => '',       // (mixed) (int) or (array) id, or ids of content
+        'format' => '',   // (string) final exit format : html, xml, json
+        'http' => '',     // (int) final http code : 200, 404
     );
 }
 
@@ -180,11 +180,7 @@ function rm_dots_dir($array)
  */
 function clean_txt($text)
 {
-    if (!get_magic_quotes_gpc()) {
-        return trim($text);
-    } else {
-        return trim(stripslashes($text));
-    }
+    return (!get_magic_quotes_gpc()) ? trim($text) : trim(stripslashes($text));
 }
 
 /**
@@ -229,29 +225,31 @@ function lang_load_land()
 /**
  * decode id
  *
+ * @params $id int, the bt_id of an article
  * @return array
  */
 function decode_id($id)
 {
-    $retour = array(
+    return array(
         'year' => substr($id, 0, 4),
         'month' => substr($id, 4, 2),
         'day' => substr($id, 6, 2),
         'hour' => substr($id, 8, 2),
         'minutes' => substr($id, 10, 2),
         'seconds' => substr($id, 12, 2)
-        );
-    return $retour;
+    );
 }
 
 /**
- * used sometimes, like in the email that is sent.
+ * get 'url' (?id=) for an article
+ *
+ * @params $id int, the bt_id of an article
+ * @params $title string
+ * @return string
  */
 function get_blogpath($id, $title)
 {
-    $decId = decode_id($id);
-    $path = URL_ROOT.'?d='.implode('/', $decId).'-'.title_url($title);
-    return $path;
+    return URL_ROOT.'?d='.implode('/', decode_id($id)).'-'.title_url($title);
 }
 
 /**
@@ -277,21 +275,21 @@ function tags_list_all($table, $statut)
             $sql .= ' WHERE bt_statut = '.$statut;
         }
         $res = $GLOBALS['db_handle']->query($sql);
-        $liste_tags = '';
+        $tags_list = '';
         // add tag to string tag1,tag2,tag3 ...
         while ($entry = $res->fetch()) {
             if (trim($entry['bt_tags']) != '') {
-                $liste_tags .= $entry['bt_tags'].',';
+                $tags_list .= $entry['bt_tags'].',';
             }
         }
         $res->closeCursor();
-        $liste_tags = rtrim($liste_tags, ',');
+        $tags_list = rtrim($tags_list, ',');
     } catch (Exception $e) {
         die('Erreur 4354768 : '.$e->getMessage());
     }
 
-    $liste_tags = str_replace(array(', ', ' ,'), ',', $liste_tags);
-    $tab_tags = explode(',', $liste_tags);
+    $tags_list = str_replace(array(', ', ' ,'), ',', $tags_list);
+    $tab_tags = explode(',', $tags_list);
     sort($tab_tags);
     unset($tab_tags['']);
     return array_count_values($tab_tags);
@@ -321,10 +319,10 @@ function tags_sort($tags)
 function sort_by_subkey($array, $subkey)
 {
     foreach ($array as $key => $item) {
-        $ss_cles[$key] = $item[$subkey];
+        $subkeyz[$key] = $item[$subkey];
     }
-    if (isset($ss_cles)) {
-        array_multisort($ss_cles, SORT_DESC, $array);
+    if (isset($subkeyz)) {
+        array_multisort($subkeyz, SORT_DESC, $array);
     }
     return $array;
 }
@@ -374,10 +372,7 @@ function token_set($action = '')
     $token = sha1(uniqid('', true).mt_rand());
 
     // Store it on the server side
-    $_SESSION['tokens'][$token]['time'] = time();
-    if (!empty($action)) {
-        $_SESSION['tokens'][$token]['action'] = $action;
-    }
+    $_SESSION['tokens'][$token] = time();
 
     return $token;
 }
@@ -404,11 +399,7 @@ function token_boot()
     // token exists
     if (isset($_SESSION['tokens'][$token])) {
         define('TOKEN_CHECK', true);
-        if (isset($_SESSION['tokens'][$token]['action'])) {
-            $_SESSION['tokens'][$token]['time'] = '-1';
-        } else {
-            unset($_SESSION['tokens'][$token]);
-        }
+        unset($_SESSION['tokens'][$token]);
         return true;
     }
 
@@ -429,19 +420,6 @@ function token_boot()
     return false;
 }
 
-/**
- * check if token is ok
- *
- * @params $token string
- * @params $action string
- * @return bool
- */
-function token_check_action($token, $action = '')
-{
-    if (!$_SESSION['tokens'][$token]) {
-        return false;
-    }
-}
 
 /**
  * remove old token stored in session
@@ -454,7 +432,7 @@ function token_cleaner()
     }
     $ttl = time() - TOKEN_TTL;
     foreach ($_SESSION['tokens'] as $token => $t) {
-        if ($ttl > $t['time']) {
+        if ($ttl > $t) {
             unset($_SESSION['tokens'][$token]);
         }
     }
@@ -731,23 +709,17 @@ function secure_host_to_path($http_host)
         $exploded['path'] = '';
     }
 
-    // var_dump(BT_RUN_INSTALL);
     // work on path
     if (!empty($exploded['path'])) {
         $tmp = explode('/', trim(trim($exploded['path']), '/'));
-        // var_dump($tmp);
         // url point to a PHP file ?
         if (strpos($exploded['path'], '.php') !== false) {
             array_pop($tmp);
-            // var_dump($tmp);
         }
         // admin or install URL ?
         if (IS_IN_ADMIN || BT_RUN_INSTALL) {
             array_pop($tmp);
-            // var_dump($tmp);
         }
-        // array_filter($tmp, function($value) { return trim($value) != ''; });
-        // array_filter($tmp);
         $exploded['path'] = implode('-', $tmp);
     }
 
@@ -755,7 +727,6 @@ function secure_host_to_path($http_host)
 
     $path = $exploded['host'].$exploded['path'];
 
-    
     // format, clean up, secure
     $path = trim(strtolower($path));
     $path = preg_replace("/[^a-z0-9-_\.\~]/", '-', $path);

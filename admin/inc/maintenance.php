@@ -34,12 +34,13 @@ function select_yes_no($name, $default, $label)
         $GLOBALS['lang']['no'],
         $GLOBALS['lang']['yes']
     );
-    $form = '<label for="'.$name.'" >'.$label.'</label>';
-    $form .= '<select id="'.$name.'" name="'.$name.'">' ;
-    foreach ($choice as $option => $label) {
-        $form .= '<option value="'.htmlentities($option).'"'.(($option == $default) ? ' selected="selected" ' : '').'>'.htmlentities($label).'</option>';
+    $form = '';
+    $form .= '<select id="'.$name.'" name="'.$name.'">';
+    foreach ($choice as $option => $opt_label) {
+        $form .= '<option value="'.htmlentities($option).'"'.(($option == $default) ? ' selected="selected" ' : '').'>'.htmlentities($opt_label).'</option>';
     }
     $form .= '</select>';
+    $form .= '<label for="'.$name.'" >'.$label.'</label>';
     return $form;
 }
 
@@ -390,15 +391,6 @@ function creer_fichier_zip($folders)
 }
 
 /**
- * fabrique le fichier json (très simple en fait)
- */
-function creer_fichier_json($arrData)
-{
-    $path = 'backup-data-'.date('Ymd-His').'.json';
-    return (file_put_contents(DIR_VHOST_BACKUP.$path, json_encode($arrData), LOCK_EX) === false) ? false : URL_VHOST_BACKUP.$path;
-}
-
-/**
  * Crée la liste des RSS et met tout ça dans un fichier OPML
  */
 function creer_fichier_opml()
@@ -588,47 +580,51 @@ function importer_opml($opmlContent)
  */
 function parse_html($content)
 {
-    $arrOut = array();
     // Netscape bookmark file (Firefox).
-    if (strcmp(substr($content, 0, strlen('<!DOCTYPE NETSCAPE-Bookmark-file-1>')), '<!DOCTYPE NETSCAPE-Bookmark-file-1>') === 0) {
-        // This format is supported by all browsers (except IE, of course), also delicious, diigo and others.
-        $arrId = array();
-        $allDtTags = explode('<DT>', $content);
-        foreach ($allDtTags as $dt) {
-            $link = array('bt_id' => '', 'bt_title' => '', 'bt_link' => '', 'bt_content' => '', 'bt_wiki_content' => '', 'bt_tags' => '', 'bt_statut' => 1, 'bt_type' => 'link');
-            $d = explode('<DD>', $dt);
-            if (strcmp(substr($d[0], 0, strlen('<A ')), '<A ') === 0) {
-                $link['bt_content'] = (isset($d[1])) ? html_entity_decode(trim($d[1]), ENT_QUOTES, 'utf-8') : '';  // Get description (optional)
-                $link['bt_wiki_content'] = $link['bt_content'];
-                preg_match('!<A .*?>(.*?)</A>!i', $d[0], $matches);
-                $link['bt_title'] = (isset($matches[1])) ? trim($matches[1]) : '';  // Get title
-                $link['bt_title'] = html_entity_decode($link['bt_title'], ENT_QUOTES, 'utf-8');
-                preg_match_all('# ([A-Z_]+)=\"(.*?)"#i', $dt, $matches, PREG_SET_ORDER); // Get all other attributes
-                $rawAddDate = 0;
-                foreach ($matches as $m) {
-                    $attr = $m[1];
-                    $value = $m[2];
-                    if ($attr == 'HREF') {
-                        $link['bt_link'] = html_entity_decode($value, ENT_QUOTES, 'utf-8');
-                    } elseif ($attr == 'ADD_DATE') {
-                        $rawAddDate = intval($value);
-                    } elseif ($attr == 'PRIVATE') {
-                        $link['bt_statut'] = ($value == 1) ? 0 : 1;
-                    } // value=1 =>> statut=0 (it’s reversed)
-                    elseif ($attr == 'TAGS') {
-                        $link['bt_tags'] = str_replace('  ', ' ', str_replace(',', ', ', html_entity_decode($value, ENT_QUOTES, 'utf-8')));
-                    }
+    if (strcmp(substr($content, 0, mb_strlen('<!DOCTYPE NETSCAPE-Bookmark-file-1>')), '<!DOCTYPE NETSCAPE-Bookmark-file-1>') !== 0) {
+        return array();
+    }
+
+    $arrOut = array();
+
+    // This format is supported by all browsers (except IE, of course), also delicious, diigo and others.
+    $arrId = array();
+    $allDtTags = explode('<DT>', $content);
+    foreach ($allDtTags as $dt) {
+        $link = array('bt_id' => '', 'bt_title' => '', 'bt_link' => '', 'bt_content' => '', 'bt_wiki_content' => '', 'bt_tags' => '', 'bt_statut' => 1, 'bt_type' => 'link');
+        $d = explode('<DD>', $dt);
+        if (strcmp(substr($d[0], 0, mb_strlen('<A ')), '<A ') === 0) {
+            $link['bt_content'] = (isset($d[1])) ? html_entity_decode(trim($d[1]), ENT_QUOTES, 'utf-8') : '';  // Get description (optional)
+            $link['bt_wiki_content'] = $link['bt_content'];
+            preg_match('!<A .*?>(.*?)</A>!i', $d[0], $matches);
+            $link['bt_title'] = (isset($matches[1])) ? trim($matches[1]) : '';  // Get title
+            $link['bt_title'] = html_entity_decode($link['bt_title'], ENT_QUOTES, 'utf-8');
+            preg_match_all('# ([A-Z_]+)=\"(.*?)"#i', $dt, $matches, PREG_SET_ORDER); // Get all other attributes
+            $rawAddDate = 0;
+            foreach ($matches as $m) {
+                $attr = $m[1];
+                $value = $m[2];
+                if ($attr == 'HREF') {
+                    $link['bt_link'] = html_entity_decode($value, ENT_QUOTES, 'utf-8');
+                } elseif ($attr == 'ADD_DATE') {
+                    $rawAddDate = intval($value);
+                } elseif ($attr == 'PRIVATE') {
+                    $link['bt_statut'] = ($value == 1) ? 0 : 1;
+                } // value=1 =>> statut=0 (it’s reversed)
+                elseif ($attr == 'TAGS') {
+                    $link['bt_tags'] = str_replace('  ', ' ', str_replace(',', ', ', html_entity_decode($value, ENT_QUOTES, 'utf-8')));
                 }
-                if ($link['bt_link'] != '') {
-                    $rawAddDate = (empty($rawAddDate)) ? time() : $rawAddDate; // In case of shitty bookmark file with no ADD_DATE
-                    while (in_array(date('YmdHis', $rawAddDate), $arrId)) {
-                        $rawAddDate--; // avoids duplicate IDs
-                    }
-                    $arrId[] = $link['bt_id'] = date('YmdHis', $rawAddDate); // converts date to YmdHis format
-                    $arrOut[] = $link;
+            }
+            if ($link['bt_link'] != '') {
+                $rawAddDate = (empty($rawAddDate)) ? time() : $rawAddDate; // In case of shitty bookmark file with no ADD_DATE
+                while (in_array(date('YmdHis', $rawAddDate), $arrId)) {
+                    $rawAddDate--; // avoids duplicate IDs
                 }
+                $arrId[] = $link['bt_id'] = date('YmdHis', $rawAddDate); // converts date to YmdHis format
+                $arrOut[] = $link;
             }
         }
     }
+
     return $arrOut;
 }

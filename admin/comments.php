@@ -84,7 +84,7 @@ if (preg_match('#\d{14}#', $vars['post_id'])) {
     $paramMakeup['menu_theme'] = 'for_comms';
     if ($vars['filtre']) {
         // for "authors" the requests is "auteur.$search": here we split the type of search and what we search.
-        $type = substr($vars['filtre'], 0, -strlen(strstr($vars['filtre'], '.')));
+        $type = substr($vars['filtre'], 0, -mb_strlen(strstr($vars['filtre'], '.')));
         $search = htmlspecialchars(ltrim(strstr($vars['filtre'], '.'), '.'));
         if (preg_match('#^\d{6}(\d{1,8})?$#', $vars['filtre'])) {
             $sql = '
@@ -202,7 +202,7 @@ function comments_form_admin($article_id, $erreurs, $datas)
         $comm['bt_link'] = '';
         $comm['author_lien'] = ($comm['bt_webpage'] != '') ? '<a href="'.$comm['bt_webpage'].'" class="webpage">'.$comm['bt_author'].'</a>' : $comm['bt_author'];
 
-        $html .= '<div id="erreurs"><ul><li>Prévisualisation&nbsp;:</li></ul></div>';
+        $html .= '<div id="erreurs"><ul><li>Prévisualisation :</li></ul></div>';
         $html .= '<div id="previsualisation">'."\n";
             $html .= conversions_theme_commentaire(file_get_contents($GLOBALS['theme_post_comm']), $comm);
         $html .= '</div>';

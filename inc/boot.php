@@ -85,7 +85,7 @@ secur_constant();
 // Constants: general
 define('BLOGOTEXT_NAME', 'BlogoText');
 define('BLOGOTEXT_SITE', 'https://github.com/BlogoText/blogotext');
-define('BLOGOTEXT_VERSION', '3.8.0-dev');
+define('BLOGOTEXT_VERSION', '3.8.2-dev');
 define('BLOGOTEXT_UA', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0');
 
 // Constants: folders

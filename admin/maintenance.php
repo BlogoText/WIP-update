@@ -62,7 +62,9 @@ function maintenance_handler_export()
                 }
             }
         }
-        $file_archive = creer_fichier_json($arrData);
+
+        $backup_path = 'backup-data-'.date('Ymd-His').'.json';
+        $file_archive = (file_put_contents(DIR_VHOST_BACKUP.$backup_path, json_encode($arrData), LOCK_EX) === false) ? false : URL_VHOST_BACKUP.$backup_path;
 
     // Export links in HTML format
     } elseif ($format == 'html') {
@@ -131,7 +133,7 @@ echo '<div id="axe">';
 echo '<div id="page">';
 
 // création du dossier des backups
-folder_create(DIR_VHOST_BACKUP, 0);
+folder_create(DIR_VHOST_BACKUP, false);
 
 
 /*

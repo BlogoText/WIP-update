@@ -404,6 +404,7 @@ $GLOBALS['lang'] = array(
 'settings_linx_dl_auto' => 'Importation automatique des fichiers partagés',
 'settings_ask_everytime' => 'Demander à chaque fois',
 'settings_check_update' => 'Vérifier les mises à jour automatiquement',
+'settings_check_feeds' => 'Mettre à jour les flux de l\'agrégateur',
 'maintenance_optim' => 'Nettoyer la base de données',
 // Notes
 'note_no_article' => 'Aucun article',

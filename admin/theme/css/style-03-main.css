@@ -2,7 +2,7 @@
 /* the entire page without top bars (#header) and footer (#footer) */
 #axe {
     padding: 10px;
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 110px);
 }
 @media (min-width: 700px) {
     #axe {

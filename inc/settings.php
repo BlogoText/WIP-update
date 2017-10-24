@@ -26,8 +26,8 @@ function settings_vhost_create($settings)
          && folder_create(DIR_VHOST_BACKUP, true, true)
          && folder_create(DIR_VHOST_DATABASES, true, true)
          && folder_create(DIR_VHOST_SETTINGS, true, true)
-         && folder_create(DIR_DOCUMENTS, true, true)
-         && folder_create(DIR_IMAGES, true, true)
+         && folder_create(DIR_DOCUMENTS, false, true)
+         && folder_create(DIR_IMAGES, false, true)
          && folder_create(DIR_MUTUAL, true, true)
          && folder_create(DIR_LOG, true, true)
          && folder_create(DIR_CACHE, true, true)
@@ -224,7 +224,6 @@ function settings_vhost_default()
         'email' => '',
         'author' => '',
 
-        'auto_check_updates' => true,
         'automatic_keywords' => true,
 
         'comments_defaut_status' => true,
@@ -261,7 +260,10 @@ function settings_vhost_default()
         'MYSQL_HOST' => 'localhost',
         'MYSQL_PORT' => 3306,
 
+        'auto_check_updates' => true,
+        'auto_check_feeds' => true,
         'SITE_UID' => sha1(uniqid(mt_rand(), true)),
+
         'AUTH_USE_IP' => true,
         'TOKEN_TTL' => 14400, // in sec
 

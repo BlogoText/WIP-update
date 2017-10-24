@@ -23,7 +23,7 @@ function indexGraphStat()
             month_to_show = months_ct;
         }
         for (var j = 0; j < months_ct; j += 1) {
-            months[j].style.width = (100 / month_to_show) + '%';
+            months[j].style.width = (100 / month_to_show) +'%';
         }
     }
     respondCanvas();
@@ -50,9 +50,8 @@ function homeBoot()
                     tabsContent[k].classList.remove('active');
                 }
                 el.classList.add('active');
-                var target = this.dataset.target,
-                    trigger = this.dataset.trigger;
-                var tabsTarget = thisTabs.querySelectorAll(target);
+                var trigger = this.dataset.trigger;
+                var tabsTarget = thisTabs.querySelectorAll(this.dataset.target);
                 tabsTarget[0].classList.add('active');
 
                 if (trigger != undefined && typeof window[trigger]() === "function") {
@@ -63,9 +62,9 @@ function homeBoot()
     }
 
     window.addEventListener("resize", indexGraphStat);
-    graphTabOnClick();
 
     document.addEventListener("DOMContentLoaded", function (event) {
+        graphTabOnClick();
         var cols = document.querySelectorAll('#grabOrder li');
         [].forEach.call(cols, grabHandlers);
     });

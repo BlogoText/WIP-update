@@ -439,7 +439,7 @@ $GLOBALS['files_list'] = file_get_array(FILE_VHOST_FILES_DB);
 // Search / Sort
 if ($vars['filtre']) {
     // For "type" the requests is "type.$search" : here we split the type of search and what we search.
-    $type = substr($vars['filtre'], 0, -strlen(strstr($vars['filtre'], '.')));
+    $type = substr($vars['filtre'], 0, -mb_strlen(strstr($vars['filtre'], '.')));
     $search = htmlspecialchars(ltrim(strstr($vars['filtre'], '.'), '.'));
 
     if (preg_match('#^\d{6}(\d{1,8})?$#', $vars['filtre'])) {
