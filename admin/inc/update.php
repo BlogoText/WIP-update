@@ -60,8 +60,8 @@ function update_core_get_releases_infos($cached = false)
             )
         );
         $context = stream_context_create($opts);
-        // $content = file_get_contents('https://api.github.com/repos/BlogoText/WIP-update/releases', false, $context);
-        $content = file_get_contents('https://api.github.com/repos/BlogoText/blogotext/releases', false, $context);
+        $content = file_get_contents('https://api.github.com/repos/BlogoText/WIP-update/releases', false, $context);
+        // $content = file_get_contents('https://api.github.com/repos/BlogoText/blogotext/releases', false, $context);
         if (!$content) {
             return false;
         }
